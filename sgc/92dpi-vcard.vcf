@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//Mac OS X 10.8.2//EN
+N:Agência Digital;92dpi;;;
+FN:92dpi Agência Digital
+EMAIL;type=INTERNET;type=HOME;type=pref:hello@92dpi.com.br
+TEL;type=CELL;type=VOICE;type=pref:92 91136545
+item1.URL;type=pref:www.92dpi.com.br
+item1.X-ABLabel:_$!<HomePage>!$_
+UID:3a7ebd63-9890-4c33-a9df-5cbf88e8d014
+X-ABUID:3A7EBD63-9890-4C33-A9DF-5CBF88E8D014:ABPerson
+END:VCARD

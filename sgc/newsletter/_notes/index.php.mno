@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8" ?><info>	<infoitem key="UD_rsNewsletter" value="name:NEW_COD;datatype:int,name:POS_COD_HOME;datatype:int,name:POS_COD_CANAL;datatype:int,name:NEW_TITULO;datatype:string,name:NEW_CLIENTE;datatype:string,name:NEW_CORPO;datatype:blob,name:NEW_STATUS;datatype:int" /></info>

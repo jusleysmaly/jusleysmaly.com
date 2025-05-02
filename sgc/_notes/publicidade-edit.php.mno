@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8" ?><info>	<infoitem key="UD_rsPUBLICIDADE" value="name:PUB_COD;datatype:int,name:POS_COD_HOME;datatype:int,name:POS_COD_CANAL;datatype:int,name:PUB_TITULO;datatype:string,name:PUB_LINK;datatype:blob,name:PUB_STATUS;datatype:int,name:PUB_DESC;datatype:blob,name:PUB_TIPO;datatype:int" /></info>

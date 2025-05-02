@@ -1,0 +1,534 @@
+<?php require_once('../Connections/conn92ID.php'); ?>
+<?php
+if (!function_exists("GetSQLValueString")) {
+function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
+{
+  if (PHP_VERSION < 6) {
+    $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
+  }
+
+  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+
+  switch ($theType) {
+    case "text":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;    
+    case "long":
+    case "int":
+      $theValue = ($theValue != "") ? intval($theValue) : "NULL";
+      break;
+    case "double":
+      $theValue = ($theValue != "") ? doubleval($theValue) : "NULL";
+      break;
+    case "date":
+      $theValue = ($theValue != "") ? "'" . $theValue . "'" : "NULL";
+      break;
+    case "defined":
+      $theValue = ($theValue != "") ? $theDefinedValue : $theNotDefinedValue;
+      break;
+  }
+  return $theValue;
+}
+}
+
+$colname_rsNewsletter = "-1";
+if (isset($_GET['URL_NEW_COD'])) {
+  $colname_rsNewsletter = $_GET['URL_NEW_COD'];
+}
+mysql_select_db($database_conn92ID, $conn92ID);
+$query_rsNewsletter = sprintf("SELECT * FROM tb_newsletter WHERE NEW_COD = %s", GetSQLValueString($colname_rsNewsletter, "int"));
+$rsNewsletter = mysql_query($query_rsNewsletter, $conn92ID) or die(mysql_error());
+$row_rsNewsletter = mysql_fetch_assoc($rsNewsletter);
+$totalRows_rsNewsletter = mysql_num_rows($rsNewsletter);
+?>
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<!-- Define Charset -->
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	
+	<!-- Responsive Meta Tag -->
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,300,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300' rel='stylesheet' type='text/css'>
+	
+    <title>Newsletter da 92dpi - Ag&ecirc;ncia Digital</title><!-- Responsive Styles and Valid Styles -->
+
+    <style type="text/css">
+    
+	    body{
+            width: 100%; 
+            background-color: #e6e5e7; 
+            margin:0; 
+            padding:0; 
+            -webkit-font-smoothing: antialiased;
+            mso-margin-top-alt:0px; mso-margin-bottom-alt:0px; mso-padding-alt: 0px 0px 0px 0px;
+        }
+        
+        p,h1,h2,h3,h4{
+	        margin-top:0;
+					margin-bottom:0;
+					padding-top:0;
+					padding-bottom:0;
+        }
+        
+        span.preheader{display: none; font-size: 1px;}
+        
+        html{
+            width: 100%; 
+        }
+        
+        table{
+            font-size: 14px;
+            border: 0;
+        }
+        
+        /* ----------- responsivity ----------- */
+        @media only screen and (max-width: 640px){
+			/*------ top header ------ */
+            .main-header{line-height: 28px !important;}
+            .main-subheader{line-height: 28px !important;}
+            
+            /*--------logo-----------*/
+            .logo{width: 128px !important;}
+            .slogan{font-size: 18px !important;}
+			/*----- main image -------*/
+			.main-image img{width: 440px !important; height: auto !important;}
+			.hide-for-iphone{display: none !important;}
+			.sidebar{height: auto !important;}
+			
+			/*--------- divider ----------*/
+			.divider img{width: 420px !important; height: 1px !important;}
+			.section-img img{width: 440px !important; height: auto !important;}
+			
+			/*--------- banner ----------*/
+			.banner img{width: 430px !important; height: auto !important;}
+			/*-------- container --------*/			
+			.container590{width: 440px !important;}
+			.container580{width: 420px !important;}
+            .container440{width: 230px !important;}
+			/*-------- secions ----------*/
+			
+            .cta-header{line-height: 26px !important;}
+            
+			/*-- --------- socials ----------- --*/
+			.social-container{width: 215px !important;}
+			
+		}
+		
+		@media only screen and (max-width: 479px){
+			
+			/*------ top header ------ */
+            .main-header{line-height: 28px !important;}
+            .main-subheader{line-height: 28px !important;}
+            
+            /*--------logo-----------*/
+            .logo{width: 280px !important;}
+            .date{width: 280px !important;}
+            .date-inside{width: 150px !important;}
+            .hideforiphone{display: none !important;}
+            .slogan{font-size: 16px !important; line-height: 26px !important;}
+            
+			/*----- main image -------*/
+			.main-image img{width: 280px !important; height: auto !important;}
+			.hide-for-iphone{display: none !important;}
+			.sidebar{height: auto !important;}
+			
+			/*--------- divider ----------*/
+			.divider img{width: 260px !important; height: 1px !important;}
+			
+			/*--------- banner ----------*/
+			.banner img{width: 270px !important; height: auto !important;}
+			/*-------- container --------*/			
+			.container590{width: 280px !important;}
+			.container580{width: 260px !important;}
+            .container440{width: 280px !important;}
+            .container440{width: 265px !important;}
+			/*-------- secions ----------*/
+			
+            .section-img img{width: 280px !important; height: auto !important;}
+            .section-img a{width: 280px !important;}
+            
+            .cta-header{line-height: 26px !important;}
+            
+			/*-- --------- socials ----------- --*/
+			.social-container{width: 280px !important;}
+		}
+		
+	</style>
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+	<!-- ======= preheader ====== -->
+	<span class="preheader">92 Ideas - A newsletter da 92dpi.<br/></span>
+	<!-- ======= end preheader ====== -->
+	
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="e6e5e7">
+		<tr><td height="50"></td></tr>
+		<!-- ======= end top header ======= -->
+		
+		<!-- ======= header ======= -->
+		<tr>
+			<td align="center">
+				
+				<table border="0" align="center" width="590" cellpadding="0" cellspacing="0" bgcolor="000000" class="container590">
+					<tr>
+						<td align="center">
+						
+							<table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+								<tr>
+									<td>
+										
+										<table border="0" align="left" cellpadding="0" cellspacing="0" width="190" bgcolor="000000" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="logo">
+										
+											<tr><td height="25" style="font-size: 25px; line-height: 25px;">&nbsp;</td></tr>
+											
+											<tr>
+												<td align="center">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr>
+															<td align="center" style="line-height: 21px;">
+																<a href="http://92dpi.ag" style="display: block; border-style: none !important; border: 0 !important;"><img editable="true" mc:edit="logo" width="150" height="85" border="0" style="display: block; width: 150px; height: 85px;" src="http://92dpi.ag/newsletter/img/logo.png" alt="logo" /></a>
+															</td>			
+														</tr>
+													</table>		
+												</td>
+											</tr>
+											
+											<tr><td height="25" style="font-size: 25px; line-height: 25px;">&nbsp;</td></tr>
+											
+										</table>
+										
+									  <table border="0" width="20" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="hideforiphone">
+				                			<tr><td height="20" width="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+				                			
+				                		</table>
+				                		
+				                		<table border="0" align="right" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="date">
+				                			<tr><td height="30" style="font-size: 30px; line-height: 50px;">&nbsp;</td></tr>
+					                    	<tr>
+					                    		<td align="center" valign="middle">
+                                                                
+					                    			<table width="270" border="0" cellpadding="0" cellspacing="0" align="center" class="date-inside">
+					                    				
+					                    				<tr>
+								                    		<td mc:edit="date" style="color: #ffffff; font-size: 20px; font-weight: normal; font-family:'Source Sans Pro' Arial, sans-serif; mso-line-height-rule: exactly;">
+									                    		<div style="line-height: 100%; text-align:center">
+																	
+									                    		</div>
+								                    		</td>
+								                    	</tr>
+								                    	
+					                    			</table>
+                                                    
+					                    		</td>
+					                    	</tr>	
+					                    	<tr><td height="15" style="font-size: 15px; line-height: 15px;">&nbsp;</td></tr>				                    	
+					                    </table>
+				                				
+									</td>
+								</tr>
+							</table>
+							
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		
+		<!-- ======= end header ======= -->
+		
+		<tr><td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td></tr>
+	</table>
+		
+	
+	<!-- ======= Main section ======= -->
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="e6e5e7" mc:repeatable="promail" mc:variant="main section image & CTA">	
+		<tr>
+			<td align="center">
+				
+				<table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+					<tr>
+						
+						<td align="center">
+							<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+									<td align="center" class="main-image">
+										<a href="<?php echo $row_rsNewsletter['NEW_CLIENTE']; ?>" style="display: block; border-style: none !important; border: 0 !important;"><img editable="true" mc:edit="main-image" width="590" height="800" border="0" style="display: block; width: 590px; height: 590px;" src="http://92dpi.ag/images/content/newsletter/<?php echo $row_rsNewsletter['NEW_COD']; ?>.jpg" alt="main image" /></a>
+									</td>			
+								</tr>
+							</table>		
+						</td>
+						
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!-- ======= end Main section ======= -->
+		
+		<!-- ======= CTA ======= -->
+		<tr>
+			<td align="center">
+				
+				<table border="0" align="center" width="590" cellpadding="0" cellspacing="0" bgcolor="ffffff" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container590">
+																										
+					<tr><td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+					
+					<tr>
+						<td align="center" mc:edit="cta-header" style="color: #222222; font-size: 18px; font-family: 'Ubuntu', Arial, sans-serif; font-weight:bold;" class="cta-header">
+							<div><?php echo $row_rsNewsletter['NEW_TITULO']; ?></div>
+						</td>
+					</tr>
+					
+					<tr><td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+					
+					<tr>					
+						<td>
+							<table border="0" align="center" width="500" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="container580">
+								
+								<tr>
+									<td align="center" mc:edit="cta-subheader" style="color: #666666; font-size: 14px; font-family: 'Source Sans Pro', Arial, sans-serif; mso-line-height-rule: exactly; line-height: 24px;">
+										<div style="line-height: 24px;">
+											<multiline></multiline>
+										  <p><?php echo $row_rsNewsletter['NEW_CORPO']; ?></p>
+											
+										  
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					
+	    			<tr><td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+	    			
+	    			<tr>
+						<td align="center" >
+	    					<a href="<?php echo $row_rsNewsletter['NEW_CLIENTE']; ?>" style="display: block; width: 142px; height: 30px; border-style: none !important; border: 0 !important;"><img editable="true" mc:edit="getit-btn" width="142" height="30" border="0" style="display: block; width: 142px; height: 30px;" src="http://92dpi.ag/newsletter/img/btn-read.png" alt="get it now" /></a>
+	    				</td>
+	    			</tr>
+	    			
+	    			<tr><td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+	    					
+				</table>
+			</td>
+		</tr>
+		<!-- ======= end CTA ======= -->
+		
+		<tr><td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td></tr>
+	</table>
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="e6e5e7" mc:repeatable="promail" mc:variant="socials">		
+		<!-- ======= socials ======= -->
+		<tr>
+			<td align="center">
+				
+				<table border="0" align="center" width="590" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container580">
+					
+					<tr>
+						<td>
+							<table border="0" align="left" width="290" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container590">
+								<tr>
+									<td>
+										
+										<table border="0" align="left" width="140" cellpadding="0" cellspacing="0" bgcolor="000000" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="social-container">
+											<tr><td height="35"></td></tr>
+											
+											<tr>
+												<td align="center"><a href="https://twitter.com/92dpi"><img editable="true" mc:edit="twitter-icon" width="40" height="40" border="0" style="display: block; width: 40px; height: 40px;" src="http://92dpi.ag/newsletter/img/twitter.png" alt="twitter" /></a>
+												</td>			
+											</tr>
+											
+											<tr><td height="10"></td></tr>
+											
+											<tr>
+												<td align="center" mc:edit="twitter" style="color: #ffffff; font-size: 14px; font-family: 'Source Sans pro', Arial, sans-serif;">
+													<div style="line-height: 100%;">
+														<multiline>
+															Twitter
+														</multiline>
+													</div>
+												</td>
+											</tr>
+											
+											<tr><td height="40"></td></tr>
+										</table>
+										
+										<table border="0" width="2" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+				                			<tr>
+				                				<td height="10" width="2"></td>
+				                			</tr>
+				                		</table>
+				                		
+				                		<table border="0" align="right" width="140" cellpadding="0" cellspacing="0" bgcolor="000000" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="social-container">
+											<tr><td height="35"></td></tr>
+											
+											<tr>
+												<td align="center">
+													<a href="https://www.facebook.com/92dpi" style="display: block; width: 40px; border-style: none !important; border: 0 !important;"><img editable="true" mc:edit="facebook-icon" width="40" height="40" border="0" style="display: block; width: 40px; height: 40px;" src="http://92dpi.ag/newsletter/img/facebook.png" alt="facebook" /></a>
+												</td>			
+											</tr>
+											
+											<tr><td height="10"></td></tr>
+											
+											<tr>
+												<td align="center" mc:edit="facebook" style="color: #ffffff; font-size: 14px; font-family: 'Source Sans pro', Arial, sans-serif;">
+													<div style="line-height: 100%;">
+														<multiline>
+															Facebook
+														</multiline>
+													</div>
+												</td>
+											</tr>
+											
+											<tr><td height="40"></td></tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+							
+							<table border="0" width="2" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container590">
+	                			<tr>
+	                				<td height="10" width="2"></td>
+	                			</tr>
+	                		</table>
+	                		
+	                		<table border="0" align="right" width="290" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container590">
+	                			<tr>
+	                				<td>
+				                		<table border="0" align="left" width="140" cellpadding="0" cellspacing="0" bgcolor="000000" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="social-container">
+											<tr><td height="35"></td></tr>
+											
+											<tr>
+												<td align="center">
+													<a href="http://instagram.com/92dpi" style="display: block; width: 40px; border-style: none !important; border: 0 !important;"><img editable="true" mc:edit="google-icon" width="40" height="40" border="0" style="display: block; width: 40px; height: 40px;" src="http://92dpi.ag/newsletter/img/instagram.png" alt="google" /></a>
+												</td>			
+											</tr>
+											
+											<tr><td height="10"></td></tr>
+											
+											<tr>
+												<td align="center" mc:edit="google" style="color: #ffffff; font-size: 14px; font-family: 'Source Sans pro', Arial, sans-serif;">
+													<div style="line-height: 100%;">
+														<multiline>
+															Instagram
+														</multiline>
+													</div>
+												</td>
+											</tr>
+											
+											<tr><td height="40"></td></tr>
+										</table>
+										
+										<table border="0" width="2" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+				                			<tr>
+				                				<td height="10" width="2"></td>
+				                			</tr>
+				                		</table>
+				                		
+				                		<table border="0" align="right" width="140" cellpadding="0" cellspacing="0" bgcolor="000000" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="social-container">
+											<tr><td height="35"></td></tr>
+											
+											<tr>
+												<td align="center">
+													<a href="http://92dpi.ag/blog/" style="display: block; width: 40px; border-style: none !important; border: 0 !important;"><img editable="true" mc:edit="pinterest-icon" width="40" height="40" border="0" style="display: block; width: 40px; height: 40px;" src="http://92dpi.ag/newsletter/img/blog.png" alt="pinterest" /></a>
+												</td>			
+											</tr>
+											
+											<tr><td height="10"></td></tr>
+											
+											<tr>
+												<td align="center" mc:edit="pinterest" style="color: #ffffff; font-size: 14px; font-family: 'Source Sans pro', Arial, sans-serif;">
+													<div style="line-height: 100%;">
+														<multiline>
+															Blog
+														</multiline>
+													</div>
+												</td>
+											</tr>
+											
+											<tr><td height="40"></td></tr>
+										</table>
+	                				</td>
+	                			</tr>
+	                		</table>
+							
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!-- ======= end socials ======= -->
+		
+		<tr><td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td></tr>
+		
+	</table>
+	
+	<table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="e6e5e7">
+		<!-- ======= footer ======= -->					
+		<tr>
+			<td align="center">
+				
+				<table border="0" align="center" width="590" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="container590">
+					
+					<tr>
+						<td align="center">
+							<table border="0" align="center" width="560" cellpadding="0" cellspacing="0" class="container580">
+								<tr><td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+								<tr>
+									<td>			
+										<td align="center">	
+											<table border="0" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container580">
+												<tr>
+													<td align="center" mc:edit="copy" style="color: #adb3ba; font-size: 12px; font-family: 'Source Sans pro', Arial, sans-serif; line-height: 30px;">
+															<multiline>
+																<span style="color: #222222;">92dpi</span> © Copyright 2014 . Todos os direitos reservados. 
+															</multiline>
+														
+													</td>
+												</tr>
+											</table>
+											
+											<table border="0" width="10" align="left" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+					                			<tr>
+					                				<td height="20" width="10" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+					                			</tr>
+					                		</table>
+											
+											<table border="0" align="right" cellpadding="0" cellspacing="0" style="border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;" class="container580">
+												<tr>
+													<td align="center" mc:edit="nav" style="color: #adb3ba; font-size: 12px; font-family: 'Source Sans pro', Arial, sans-serif; line-height: 30px;">
+														
+															<multiline>
+																<a href="http://www.92dpi.ag" style="color: #000000; text-decoration: none;">92dpi.ag</a>&nbsp;&nbsp;<span style="font-weight: 700; color: #0000;">/</span>&nbsp;&nbsp;<a href="http://92dpi.ag/content/contato.php" style="color: #adb3ba; text-decoration: none;">Contato</a>
+															</multiline>
+														
+													</td>
+												</tr>
+											</table>
+											
+										</td>
+									</td>
+								</tr>
+								<tr><td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td></tr>
+							</table>
+						</td>
+					</tr>
+					
+				</table>
+			</td>
+		</tr>
+		
+		<tr><td height="30"></td></tr>
+		
+		<!-- ======= end footer ======= -->					
+		
+		
+	</table>
+</body>
+</html>
+<?php
+mysql_free_result($rsNewsletter);
+?>

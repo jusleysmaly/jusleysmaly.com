@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8" ?><info>	<infoitem key="UD_rsAGENDA" value="name:AGD_COD;datatype:int,name:AGD_TITULO;datatype:string,name:AGD_DESCRICAO;datatype:blob,name:AGD_DATA_DIA;datatype:int,name:AGD_DATA_MES;datatype:int,name:AGD_DATA_ANO;datatype:int,name:AGD_LOCAL;datatype:string,name:AGD_HORA;datatype:string,name:AGD_STATUS;datatype:int" /></info>
