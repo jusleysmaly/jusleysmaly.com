@@ -31,3 +31,6 @@ jobs:
             **/.git*/**
             **/.github/**
             **/CLAUDE.md
+              **/_template-reference/**
+              **/template-reference.txt
+              **/.claude/**
