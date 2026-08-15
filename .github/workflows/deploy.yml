@@ -1,16 +1,33 @@
-- name: Deploy via FTP
-  uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-  with:
-    server: ${{ secrets.FTP_HOST }}
-    username: ${{ secrets.FTP_USERNAME }}
-    password: ${{ secrets.FTP_PASSWORD }}
-    protocol: ftp
-    port: ${{ secrets.FTP_PORT }}
-    server-dir: ${{ secrets.FTP_SERVER_DIR }}
-    timeout: 120000
-    log-level: verbose
-    exclude: |
-      **/.git*
-      **/.git*/**
-      **/.github/**
-      **/CLAUDE.md
+name: Deploy to HostGator
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy website
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: ${{ secrets.FTP_PORT }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          timeout: 120000
+          log-level: verbose
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/CLAUDE.md
