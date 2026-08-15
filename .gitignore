@@ -1,0 +1,15 @@
+# Local template reference — never commit or deploy
+_template-reference/
+
+# Claude local files
+.claude/
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
+
+# Local generated reference index
+template-reference.txt
