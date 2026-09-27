@@ -13,3 +13,6 @@ _template-reference/
 
 # Local generated reference index
 template-reference.txt
+
+# Brand Archive — local working sources, never commit or deploy
+/brand/_source/

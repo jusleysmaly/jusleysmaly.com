@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- title / description: static PT default for crawlers and link previews; replaced at runtime from content/site.md -->
+<title>BRAND — por Jusley Smaly</title>
+<meta name="description" content="Arquivo vivo de marcas — estratégia, identidade e sistemas de marca por Jusley Smaly.">
+<style>
+/* ==========================================================================
+   BRAND — Living Brand Archive
+   STRUCTURAL PROTOTYPE · v0.1 · grayscale only · no final visual direction
+   ========================================================================== */
+
+:root{
+  --bg:#ffffff;
+  --fg:#000000;
+  --ink-2:#333333;
+  --muted:#707070;
+  --line:#d9d9d9;
+  --ph:#ececec;
+  --ph-logo:#e1e1e1;
+  --ph-line:#d0d0d0;
+  --hover:#f5f5f5;
+
+  --max:1360px;                               /* content max width */
+  --gutter:clamp(16px,3.3vw,48px);            /* side margin */
+  --gap:clamp(12px,1.6vw,24px);               /* column gap (12-col grid) */
+  --header-h:64px;
+  --frame-h:clamp(340px,64vh,640px);          /* gallery height, desktop */
+  --frame-gap:10px;
+  --edge:48px;                                /* gallery left edge — set by JS to align with grid */
+
+  --s-section:clamp(96px,16vh,180px);         /* space before a section */
+  --s-project:clamp(88px,14vh,160px);         /* space between projects */
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  font-size:15px;line-height:1.5;color:var(--fg);background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+button{font:inherit;color:inherit}
+section,article{scroll-margin-top:var(--header-h)}
+[hidden]{display:none !important}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap)}
+.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.muted{color:var(--muted)}
+
+/* ---------- HEADER ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;background:var(--bg);
+  border-bottom:1px solid transparent;transition:border-color .2s;
+}
+.site-header.is-scrolled{border-bottom-color:var(--line)}
+.header-inner{height:var(--header-h);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.brand b{font-size:15px;font-weight:700;letter-spacing:.06em}
+.brand span{font-size:13px;color:var(--muted)}
+.nav{display:flex;gap:28px}
+.nav a{
+  font-size:12px;letter-spacing:.08em;text-decoration:none;color:var(--muted);
+  position:relative;padding:6px 0;display:inline-flex;gap:4px;align-items:baseline;
+}
+.nav a:hover,.nav a.is-active{color:var(--fg)}
+.nav a.is-active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg)}
+.nav .count{font-size:9px;letter-spacing:0;transform:translateY(-5px)}
+.nav .lang{display:flex;align-items:baseline;gap:6px;font-size:12px;color:var(--muted)} /* PT / EN — links reuse .nav a */
+
+/* ---------- HERO ---------- */
+.hero{padding:clamp(56px,10vh,112px) 0 clamp(48px,8vh,88px)}
+.hero-kicker{grid-column:1/-1;display:flex;gap:24px}
+.hero h1{
+  grid-column:1/11;margin-top:28px;
+  font-size:clamp(38px,5.6vw,84px);line-height:1;letter-spacing:-.035em;font-weight:700;
+}
+.hero-meta{
+  grid-column:1/-1;margin-top:clamp(40px,7vh,80px);
+  border-top:1px solid var(--fg);padding-top:16px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);row-gap:20px;
+}
+.hero-meta dt{margin-bottom:6px}
+.hero-meta dd{font-size:14px;line-height:1.45}
+
+/* ---------- INDEX (archive list + filter) ---------- */
+.index{padding-bottom:0}
+.index-head{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-bottom:14px;flex-wrap:wrap}
+.filter{display:flex;gap:6px}
+.filter button{
+  font-size:11px;letter-spacing:.08em;background:none;cursor:pointer;
+  border:1px solid var(--line);padding:6px 12px;color:var(--muted);
+}
+.filter button:hover{border-color:var(--fg);color:var(--fg)}
+.filter button[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.filter-status{font-size:12px;color:var(--muted);margin-top:12px;min-height:18px}
+.filter-status button{background:none;border:0;text-decoration:underline;cursor:pointer;color:var(--fg);font-size:12px}
+
+.index-table{border-top:1px solid var(--fg)}
+.index-row{
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
+  align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);
+  text-decoration:none;font-size:14px;transition:background .15s;
+}
+.index-row:hover{background:var(--hover)}
+.index-row .c-num{grid-column:1/2;font-size:12px;color:var(--muted);padding-left:2px}
+.index-row .c-name{grid-column:2/5;font-weight:700}
+.index-row .c-disc{grid-column:5/9;color:var(--ink-2)}
+.index-row .c-year{grid-column:9/10}
+.index-row .c-status{grid-column:10/11}
+.index-row .c-upd{grid-column:11/13;text-align:right;color:var(--muted);font-size:12px;padding-right:2px}
+.index-head-row{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:10px 0}
+.index-head-row:hover{background:none}
+
+/* ---------- SECTION HEAD (WIP / DONE / NOTES) ---------- */
+.section{padding-top:var(--s-section)}
+.section-head{
+  align-items:end;padding-bottom:20px;border-bottom:1px solid var(--fg);
+  margin-bottom:clamp(48px,9vh,96px);
+}
+.section-head h2{
+  grid-column:1/8;font-size:clamp(64px,11vw,168px);line-height:.82;
+  letter-spacing:-.05em;font-weight:700;
+}
+.section-head aside{grid-column:9/13;padding-bottom:6px}
+.section-head aside .label{display:flex;justify-content:space-between}
+.section-head aside p{margin-top:10px;font-size:14px;color:var(--ink-2);max-width:36ch}
+.empty{padding:40px 0;color:var(--muted)}
+
+/* ---------- PROJECT ---------- */
+.project{padding-bottom:var(--s-project)}
+.project:last-child{padding-bottom:0}
+.project-head{align-items:start;margin-bottom:clamp(24px,4vh,40px)}
+.p-num{grid-column:1/2;font-size:13px;padding-top:.7em}
+.p-main{grid-column:2/8}
+.p-name{font-size:clamp(40px,5.2vw,80px);line-height:.95;letter-spacing:-.035em;font-weight:700}
+.p-desc{margin-top:16px;max-width:46ch;color:var(--ink-2)}
+.p-meta{grid-column:9/13;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;padding-top:.7em}
+.p-meta dt{margin-bottom:4px}
+.p-meta dd{font-size:14px;line-height:1.4}
+
+.badge{
+  display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.08em;
+  padding:3px 8px;border:1px solid var(--fg);line-height:1.2;
+}
+.badge.wip{border-style:dashed}
+.badge.wip::before{content:"";width:6px;height:6px;border-radius:50%;border:1px solid var(--fg)}
+.badge.done{background:var(--fg);color:var(--bg)}
+
+/* WIP stage tracker */
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:22px;max-width:420px}
+.stage{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stage::before{content:"";display:block;height:2px;background:var(--line);margin-bottom:6px}
+.stage.is-done{color:var(--fg)}
+.stage.is-done::before{background:var(--fg)}
+.stage.is-current{color:var(--fg)}
+.stage.is-current::before{background:repeating-linear-gradient(90deg,var(--fg) 0 4px,transparent 4px 7px)}
+
+/* Project log (history of the project inside the archive) */
+.log{margin-top:18px;max-width:46ch}
+.log summary{list-style:none;cursor:pointer;display:inline-flex;gap:8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.log summary::-webkit-details-marker{display:none}
+.log summary::after{content:"+"}
+.log[open] summary::after{content:"−"}
+.log summary:hover{color:var(--fg)}
+.log ol{list-style:none;margin-top:10px;border-top:1px solid var(--line)}
+.log li{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.log time{color:var(--muted);font-size:12px}
+
+/* ---------- GALLERY (film strip) ---------- */
+.gallery{
+  display:flex;gap:var(--frame-gap);overflow-x:auto;overflow-y:hidden;
+  overscroll-behavior-x:contain;scroll-snap-type:x proximity;
+  padding-left:var(--edge);scroll-padding-left:var(--edge);
+  scrollbar-width:none;cursor:grab;outline:none;
+}
+.gallery::-webkit-scrollbar{display:none}
+.gallery::after{content:"";flex:0 0 max(1px,calc(var(--edge) - var(--frame-gap)))}
+.gallery.is-dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.gallery:focus-visible{box-shadow:inset 0 0 0 1px var(--fg)}
+
+.frame{flex:0 0 auto;width:calc(var(--frame-h) * var(--r));scroll-snap-align:start}
+.ph{
+  height:var(--frame-h);position:relative;display:grid;place-items:center;
+  background-color:var(--ph);
+  background-image:
+    linear-gradient(to top right,transparent calc(50% - .5px),var(--ph-line) calc(50% - .5px),var(--ph-line) calc(50% + .5px),transparent calc(50% + .5px)),
+    linear-gradient(to bottom right,transparent calc(50% - .5px),var(--ph-line) calc(50% - .5px),var(--ph-line) calc(50% + .5px),transparent calc(50% + .5px));
+}
+.frame.is-logo .ph{background-color:var(--ph-logo)}
+.ph-label{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--ph);padding:6px 10px;position:relative;
+}
+.frame.is-logo .ph-label{background:var(--ph-logo);font-weight:700}
+/* real image: fills the frame box (box ratio = file ratio), never cropped */
+.frame.has-image .ph{background:none}
+.frame.has-image .ph img{display:block;width:100%;height:100%;object-fit:contain}
+.ph-idx,.ph-ar{position:absolute;font-size:10px;letter-spacing:.08em;color:#8a8a8a}
+.ph-idx{left:12px;top:10px}
+.ph-ar{right:12px;bottom:10px}
+.frame figcaption{display:flex;justify-content:space-between;gap:12px;padding-top:10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.frame figcaption span:last-child{color:var(--muted)}
+
+.gallery-bar{display:flex;align-items:center;gap:24px;margin-top:18px}
+.g-hint{font-size:11px;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.g-hint .touch{display:none}
+.g-track{flex:1;height:1px;background:var(--line);position:relative;overflow:hidden}
+.g-fill{position:absolute;inset:0;background:var(--fg);transform-origin:left;transform:scaleX(0)}
+.g-count{font-size:12px;letter-spacing:.06em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.g-btns{display:flex;gap:6px}
+.g-btn{width:40px;height:40px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-size:15px}
+.g-btn:hover:not(:disabled){border-color:var(--fg)}
+.g-btn:disabled{opacity:.3;cursor:default}
+
+/* ---------- NOTES ---------- */
+.notes-list{border-top:1px solid var(--fg)}
+.note{border-bottom:1px solid var(--line)}
+.note summary{
+  list-style:none;cursor:pointer;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));
+  column-gap:var(--gap);align-items:baseline;padding:22px 0;transition:background .15s;
+}
+.note summary::-webkit-details-marker{display:none}
+.note summary:hover{background:var(--hover)}
+.note .n-num{grid-column:1/2;font-size:12px;color:var(--muted);padding-left:2px}
+.note .n-title{grid-column:2/8;font-size:clamp(20px,2vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.note .n-sub{grid-column:8/11;font-size:14px;color:var(--ink-2)}
+.note .n-year{grid-column:11/12;font-size:13px}
+.note .n-toggle{grid-column:12/13;text-align:right;font-size:18px;line-height:1;padding-right:2px}
+.note .n-toggle::after{content:"+"}
+.note[open] .n-toggle::after{content:"−"}
+.note .n-body{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);padding:0 0 28px}
+.note .n-body p{grid-column:2/8;color:var(--ink-2);max-width:56ch}
+
+/* ---------- ABOUT ---------- */
+.about .a-label{grid-column:1/4}
+.about .a-body{grid-column:4/13}
+.about h3{font-size:clamp(32px,3.6vw,52px);letter-spacing:-.03em;line-height:1;font-weight:700}
+.about .a-role{margin-top:10px;font-size:15px}
+.about .a-text{margin-top:28px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
+.about .a-fields{margin-top:36px;display:flex;flex-wrap:wrap;border-top:1px solid var(--line)}
+.about .a-fields li{list-style:none;flex:1 1 0;min-width:120px;padding-top:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+
+/* ---------- CONTACT ---------- */
+.contact{padding:var(--s-section) 0 clamp(96px,16vh,180px)}
+.contact h2{grid-column:1/-1;margin-top:24px;font-size:clamp(44px,7.4vw,112px);line-height:.95;letter-spacing:-.045em;font-weight:700}
+.contact h2 span{display:block;color:var(--muted)}
+.contact-links{
+  grid-column:1/-1;margin-top:clamp(48px,8vh,88px);list-style:none;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);
+}
+.contact-links a{
+  display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--fg);
+  text-decoration:none;font-size:13px;letter-spacing:.08em;
+}
+.contact-links a:hover{color:var(--muted)}
+
+/* ---------- FOOTER ---------- */
+.site-footer{border-top:1px solid var(--line);padding:24px 0 40px}
+.footer-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.footer-row a{text-decoration:none;color:var(--fg)}
+.proto{margin-top:32px;border:1px dashed var(--line);padding:16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.proto .label{margin-right:auto;color:var(--muted)}
+.proto button{background:none;border:1px solid var(--line);padding:7px 12px;font-size:11px;letter-spacing:.08em;cursor:pointer}
+.proto button:hover{border-color:var(--fg)}
+
+/* ---------- GRID OVERLAY (prototype) ---------- */
+.grid-overlay{position:fixed;inset:0;pointer-events:none;z-index:100;display:none}
+.grid-overlay.on{display:block}
+.grid-overlay .grid{height:100%}
+.grid-overlay .grid div{background:rgba(0,0,0,.045);height:100%}
+
+/* ---------- MOBILE (≈390px) ---------- */
+@media (max-width:760px){
+  :root{
+    --header-h:56px;
+    --frame-h:70vw;           /* gallery height, mobile — width still = height × real ratio */
+    --frame-gap:8px;
+    --s-section:96px;
+    --s-project:80px;
+  }
+  body{font-size:15px}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .brand span{display:none}
+  .nav{gap:10px}          /* was 14px — room for PT / EN */
+  .nav .lang{gap:4px}
+  .nav a{font-size:11px;letter-spacing:.06em}
+  .nav .count{display:none}
+
+  .hero{padding:40px 0 48px}
+  .hero h1{grid-column:1/-1;margin-top:18px;font-size:40px}
+  .hero-meta{grid-template-columns:1fr 1fr;margin-top:36px}
+
+  .index-row{grid-template-columns:28px 1fr auto;column-gap:12px;padding:14px 0}
+  .index-row .c-num{grid-column:1}
+  .index-row .c-name{grid-column:2}
+  .index-row .c-status{grid-column:3}
+  .index-row .c-disc,.index-row .c-year,.index-row .c-upd{display:none}
+  .index-head-row{display:none}
+
+  .section-head h2{grid-column:1/-1;font-size:22vw}
+  .section-head aside{grid-column:1/-1;margin-top:20px}
+
+  .p-num{grid-column:1/-1;padding-top:0;margin-bottom:8px}
+  .p-main{grid-column:1/-1}
+  .p-name{font-size:44px}
+  .p-meta{grid-column:1/-1;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+
+  .ph-ar{display:none}
+  .gallery{scroll-snap-type:x mandatory}
+  .g-hint .desk{display:none}
+  .g-hint .touch{display:inline}
+  .g-btns{display:none}
+  .gallery-bar{gap:16px}
+
+  .note summary{grid-template-columns:28px 1fr 20px;column-gap:12px;row-gap:6px;padding:18px 0}
+  .note .n-num{grid-column:1;grid-row:1}
+  .note .n-title{grid-column:2;grid-row:1;font-size:20px}
+  .note .n-sub{grid-column:2;grid-row:2}
+  .note .n-year{display:none}
+  .note .n-toggle{grid-column:3;grid-row:1}
+  .note .n-body{grid-template-columns:28px 1fr;column-gap:12px}
+  .note .n-body p{grid-column:2}
+
+  .about .a-label,.about .a-body{grid-column:1/-1}
+  .about .a-body{margin-top:24px}
+  .about .a-fields li{flex:1 1 50%;padding-bottom:12px}
+
+  .contact h2{font-size:44px}
+  .contact-links{grid-template-columns:1fr}
+
+  .grid-overlay .grid div:nth-child(n+5){display:none}
+}
+@media (hover:none){ .gallery{cursor:auto} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" data-i18n-aria="global.back_to_top_aria">
+      <b data-i18n="global.brand_mark"></b><span><span data-i18n="global.by"></span> <span data-i18n="global.name"></span></span>
+    </a>
+    <nav class="nav" data-i18n-aria="nav.aria">
+      <a href="#archive" data-nav="archive" data-i18n="nav.all"></a>
+      <a href="#wip" data-nav="wip"><span data-i18n="global.wip"></span><span class="count" data-count="wip"></span></a>
+      <a href="#done" data-nav="done"><span data-i18n="global.done"></span><span class="count" data-count="done"></span></a>
+      <a href="#notes" data-nav="notes" data-i18n="nav.notes"></a>
+      <a href="#about" data-nav="about" data-i18n="nav.about"></a>
+      <span class="lang" id="lang-switch" role="group" data-i18n-aria="global.lang_label"></span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero" data-i18n-aria="hero.aria">
+  <div class="wrap grid">
+    <div class="hero-kicker label"><span data-i18n="hero.kicker"></span><span class="muted" data-i18n="hero.kicker_secondary"></span></div>
+    <h1 data-i18n="hero.title"></h1>
+    <dl class="hero-meta">
+      <div><dt class="label muted" data-i18n="hero.designer_label"></dt><dd><span data-i18n="global.name"></span><br><span data-i18n="hero.designer_role"></span></dd></div>
+      <div><dt class="label muted" data-i18n="hero.practice_label"></dt><dd data-i18n="hero.practice_text"></dd></div>
+      <div><dt class="label muted" data-i18n="hero.archive_label"></dt><dd id="archive-counts">—</dd></div>
+      <div><dt class="label muted" data-i18n="hero.last_updated_label"></dt><dd id="last-updated">—</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================== INDEX / ALL ============================== -->
+<section class="index" id="archive" data-i18n-aria="aux.index.aria">
+  <div class="wrap">
+    <div class="index-head">
+      <span class="label" data-i18n="aux.index.label"></span>
+      <div class="filter" role="group" data-i18n-aria="aux.index.filter_aria">
+        <button type="button" data-filter="all" aria-pressed="true"><span data-i18n="nav.all"></span> <span data-count="all"></span></button>
+        <button type="button" data-filter="wip" aria-pressed="false"><span data-i18n="global.wip"></span> <span data-count="wip"></span></button>
+        <button type="button" data-filter="done" aria-pressed="false"><span data-i18n="global.done"></span> <span data-count="done"></span></button>
+      </div>
+    </div>
+    <div class="index-table" id="index-table"></div>
+    <p class="filter-status" id="filter-status" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- ============================== WIP ============================== -->
+<section class="section" id="wip" aria-labelledby="wip-title">
+  <div class="wrap">
+    <header class="section-head grid">
+      <h2 id="wip-title" data-i18n="global.wip"></h2>
+      <aside>
+        <div class="label"><span data-i18n="wip.label"></span><span data-count="wip"></span></div>
+        <p data-i18n="wip.description"></p>
+      </aside>
+    </header>
+  </div>
+  <div id="wip-list"></div>
+</section>
+
+<!-- ============================== DONE ============================== -->
+<section class="section" id="done" aria-labelledby="done-title">
+  <div class="wrap">
+    <header class="section-head grid">
+      <h2 id="done-title" data-i18n="global.done"></h2>
+      <aside>
+        <div class="label"><span data-i18n="done.label"></span><span data-count="done"></span></div>
+        <p data-i18n="done.description"></p>
+      </aside>
+    </header>
+  </div>
+  <div id="done-list"></div>
+</section>
+
+<!-- ============================== NOTES ============================== -->
+<section class="section" id="notes" aria-labelledby="notes-title">
+  <div class="wrap">
+    <header class="section-head grid">
+      <h2 id="notes-title" data-i18n="notes.title"></h2>
+      <aside>
+        <div class="label"><span data-i18n="notes.label"></span><span data-count="notes"></span></div>
+        <p data-i18n="notes.description"></p>
+      </aside>
+    </header>
+    <div class="notes-list" id="notes-list"></div>
+  </div>
+</section>
+
+<!-- ============================== ABOUT ============================== -->
+<section class="section about" id="about" data-i18n-aria="about.label">
+  <div class="wrap grid">
+    <div class="a-label label" data-i18n="about.label"></div>
+    <div class="a-body">
+      <h3 data-i18n="global.name"></h3>
+      <p class="a-role muted" data-i18n="about.role"></p>
+      <p class="a-text" data-i18n="about.text"></p>
+      <ul class="a-fields" data-i18n-list="about.fields"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CONTACT ============================== -->
+<section class="contact" id="contact" data-i18n-aria="contact.label">
+  <div class="wrap grid">
+    <div class="label" style="grid-column:1/-1" data-i18n="contact.label"></div>
+    <h2 data-i18n-lead="contact.title"><span data-i18n="contact.subtitle"></span></h2>
+    <ul class="contact-links" id="contact-links"></ul>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-row">
+      <span data-i18n="footer.copyright"></span>
+      <span><span data-i18n="footer.archive_line"></span> — <span data-i18n="footer.last_updated"></span> <span data-last-updated></span></span>
+      <a href="#top" data-i18n="footer.back_to_top"></a>
+    </div>
+
+    <!-- Prototype-only controls: hidden by default, shown with ?proto in the URL -->
+    <div class="proto" id="proto" aria-label="Prototype controls" hidden>
+      <span class="label">Prototype controls — not part of the final site</span>
+      <button type="button" id="sim-done">Simulate NH → DONE</button>
+      <button type="button" id="sim-reset">Reset data</button>
+      <button type="button" id="toggle-grid">Toggle grid (G)</button>
+    </div>
+  </div>
+</footer>
+
+<div class="grid-overlay" id="grid-overlay" aria-hidden="true"><div class="wrap grid"></div></div>
+
+<script>
+/* ==========================================================================
+   DATA — shape the renderer expects.
+   Content now comes from /brand/content/*.md (see CONTENT loader below),
+   converted into this shape. The projects below are a TEMPORARY FALLBACK,
+   used only if the .md files cannot be loaded — not part of the selection.
+   Moving a project from WIP to DONE = change `status` (+ `updated`, `frames`).
+   The LOGO is always frame 01: it is added automatically by the renderer,
+   so `frames` lists only the images that follow it (3–5 for now).
+   Frame types must come from FRAME_TYPES below.
+   ========================================================================== */
+const FRAME_LOGO = "Logo";
+const FRAME_TYPES = ["System", "Typography", "Exploration", "Application", "Context"]; // fallback DATA
+let FRAME_KEYS = []; // frame type keys from site.md → aux.frames (.md content)
+
+const DATA = {
+  projects: [
+    {
+      id: "nh", name: "NH", year: 2026, status: "wip", updated: "2026-09-26",
+      disciplines: ["Brand Strategy", "Identity"],
+      stage: 1, // 0 Strategy · 1 Identity · 2 System · 3 Application
+      desc: "Brand platform and identity in development. Currently testing typographic territories and the first system rules.",
+      frames: [["Exploration", "4:5"], ["Typography", "3:2"], ["System", "4:5"], ["Exploration", "16:10"]],
+      log: [["2026-09-26", "Type direction added"], ["2026-09-12", "Exploration — round 02"], ["2026-09-01", "Project started"]]
+    },
+    {
+      id: "alpha", name: "Project Alpha", year: 2026, status: "wip", updated: "2026-09-19",
+      disciplines: ["Brand Identity", "Brand System"],
+      stage: 2,
+      desc: "Placeholder — identity system being expanded into a full toolkit: grid, type scale and first applications.",
+      frames: [["System", "3:2"], ["Typography", "4:5"], ["Exploration", "4:5"], ["Application", "16:10"]],
+      log: [["2026-09-19", "System rules drafted"], ["2026-08-28", "Identity approved"]]
+    },
+    {
+      id: "vetcare", name: "VetCare", year: 2026, status: "done", updated: "2026-07-10",
+      disciplines: ["Brand Strategy", "Identity", "Brand OS"],
+      desc: "Placeholder — one or two lines on the challenge, the strategic move and the system that came out of it.",
+      frames: [["System", "4:5"], ["Typography", "3:2"], ["Application", "16:10"], ["Context", "4:5"]]
+    },
+    {
+      id: "saccaro", name: "Saccaro", year: 2025, status: "done", updated: "2025-11-01",
+      disciplines: ["Brand Identity", "Art Direction"],
+      desc: "Placeholder — one or two lines on the challenge, the strategic move and the system that came out of it.",
+      frames: [["System", "4:5"], ["Typography", "3:2"], ["Application", "16:10"], ["Context", "4:5"]]
+    },
+    {
+      id: "tidelli", name: "Tidelli", year: 2025, status: "done", updated: "2025-06-01",
+      disciplines: ["Brand Identity", "Art Direction"],
+      desc: "Placeholder — one or two lines on the challenge, the strategic move and the system that came out of it.",
+      frames: [["System", "4:5"], ["Typography", "3:2"], ["Application", "16:10"], ["Context", "4:5"]]
+    },
+    {
+      id: "baniwa", name: "Baniwa", year: 2024, status: "done", updated: "2024-09-01",
+      disciplines: ["Brand Strategy", "Identity"],
+      desc: "Placeholder — one or two lines on the challenge, the strategic move and the system that came out of it.",
+      frames: [["System", "4:5"], ["Typography", "3:2"], ["Application", "16:10"], ["Context", "4:5"]]
+    }
+  ],
+  notes: [
+    { title: "Why the logo is not the brand", sub: "Short note about identity systems.", year: 2026, date: "2026-09-20",
+      body: "Placeholder — a few paragraphs on why a mark is only the entry point, and how the system around it is what people actually recognise." },
+    { title: "Brands are systems", sub: "Short note about building identities that evolve.", year: 2026, date: "2026-08-30",
+      body: "Placeholder — on rules, not templates: designing identities that can change without breaking." },
+    { title: "Designing between strategy and expression", sub: "Short note.", year: 2026, date: "2026-08-02",
+      body: "Placeholder — on the gap between what a brand says it is and how it actually looks, sounds and behaves." }
+  ]
+};
+
+const ORIGINAL = JSON.parse(JSON.stringify(DATA));
+const STAGES = ["strategy", "identity", "system", "application"]; // keys → site.md aux.stages
+const MONTHS = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"]; // used only if site.md is missing
+
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const pad = n => String(n).padStart(2, "0");
+const fmt = iso => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || "")) return "—"; // undocumented date
+  const months = t("aux.months") || MONTHS;
+  const [y, m, d] = iso.split("-"); return `${d} ${months[+m - 1]} ${y}`;
+};
+const ratio = ar => { const [w, h] = ar.split(":").map(Number); return w / h; };
+
+const state = { filter: "all" };
+
+/* ---------- ordering ---------- */
+function byStatus(status) {
+  return DATA.projects
+    .filter(p => p.status === status)
+    .sort((a, b) => (+b.year || 0) - (+a.year || 0) || b.updated.localeCompare(a.updated));
+}
+
+/* ---------- templates ---------- */
+function frameHTML([label, ar, meta], k, total) {
+  const isLogo = k === 0;
+  // .md frames arrive with the translated type label; fallback DATA labels are translated here
+  const type = meta ? label : esc(t(`aux.frames.${String(label).toLowerCase()}`) || label);
+  // right-hand caption: the frame's own caption when it adds something to the type label
+  const cap = esc((meta && meta.caption && meta.caption[CONTENT.lang]) || "");
+  const note = cap && cap.toLowerCase() !== type.toLowerCase() ? cap : isLogo ? esc(t("aux.gallery.primary_mark")) : "";
+  const img = meta && meta.image; // real image → same frame box; no image → placeholder
+  return `
+    <figure class="frame${isLogo ? " is-logo" : ""}${img ? " has-image" : ""}" style="--r:${ratio(ar)}">
+      <div class="ph">${img ? `
+        <img src="${esc(img)}" alt="${cap || type}" loading="${k < 2 ? "eager" : "lazy"}" decoding="async" draggable="false">` : `
+        <span class="ph-idx">${pad(k + 1)} / ${pad(total)}</span>
+        <span class="ph-label">${esc(t("aux.gallery.image"))} / ${type}</span>
+        <span class="ph-ar">${ar}</span>`}
+      </div>
+      <figcaption><span>${pad(k + 1)} — ${type}</span><span>${note}</span></figcaption>
+    </figure>`;
+}
+
+function projectHTML(p, i) {
+  const frames = [p.logo || ["logo", "1:1"], ...p.frames]; // LOGO always first
+  const isWip = p.status === "wip";
+  const hasStage = Number.isInteger(p.stage) && p.stage >= 0 && p.stage < STAGES.length;
+  const stageLabel = s => esc(t(`aux.stages.${s}`));
+  const stages = isWip ? `
+      <div class="stages" aria-label="${hasStage ? `${esc(t("aux.project.current_stage"))}: ${stageLabel(STAGES[p.stage])}` : esc(t("aux.project.stage_unknown"))}">
+        ${STAGES.map((s, k) => `<span class="stage ${hasStage && k < p.stage ? "is-done" : hasStage && k === p.stage ? "is-current" : ""}">${stageLabel(s)}</span>`).join("")}
+      </div>` : "";
+  const log = p.log && p.log.length ? `
+      <details class="log"${isWip ? "" : ""}>
+        <summary>${esc(t("aux.project.log"))} (${pad(p.log.length)})</summary>
+        <ol>${p.log.map(([d, t]) => `<li><time datetime="${d}">${fmt(d)}</time><span>${t}</span></li>`).join("")}</ol>
+      </details>` : "";
+
+  return `
+  <article class="project" id="p-${p.id}" data-status="${p.status}">
+    <div class="wrap">
+      <header class="project-head grid">
+        <div class="p-num">${pad(i + 1)}</div>
+        <div class="p-main">
+          <h3 class="p-name">${p.name}</h3>
+          <p class="p-desc">${p.desc}</p>
+          ${stages}
+          ${log}
+        </div>
+        <dl class="p-meta">
+          <div><dt class="label muted">${esc(t("aux.project.discipline"))}</dt><dd>${p.disciplines.join(" · ")}</dd></div>
+          <div><dt class="label muted">${esc(t("aux.project.year"))}</dt><dd>${p.year}</dd></div>
+          <div><dt class="label muted">${esc(t("aux.project.status"))}</dt><dd><span class="badge ${p.status}">${p.status.toUpperCase()}</span></dd></div>
+          <div><dt class="label muted">${esc(t(isWip ? "aux.project.updated" : "aux.project.completed"))}</dt><dd>${fmt(p.updated)}</dd></div>
+        </dl>
+      </header>
+    </div>
+    <div class="gallery" tabindex="0" aria-label="${tx("aux.gallery.sequence", { name: p.name, count: frames.length })} ${esc(t("aux.gallery.keys_hint"))}">
+      ${frames.map((f, k) => frameHTML(f, k, frames.length)).join("")}
+    </div>
+    <div class="wrap">
+      <div class="gallery-bar">
+        <span class="g-hint"><span class="desk">${esc(t("aux.gallery.drag"))}</span><span class="touch">${esc(t("aux.gallery.swipe"))}</span></span>
+        <span class="g-track"><span class="g-fill"></span></span>
+        <span class="g-count">01 / ${pad(frames.length)}</span>
+        <span class="g-btns">
+          <button type="button" class="g-btn" data-dir="-1" aria-label="${esc(t("aux.gallery.previous"))}">←</button>
+          <button type="button" class="g-btn" data-dir="1" aria-label="${esc(t("aux.gallery.next"))}">→</button>
+        </span>
+      </div>
+    </div>
+  </article>`;
+}
+
+function indexRowHTML(p, i) {
+  return `
+    <a class="index-row" href="#p-${p.id}" data-status="${p.status}">
+      <span class="c-num">${pad(i + 1)}</span>
+      <span class="c-name">${p.name}</span>
+      <span class="c-disc">${p.disciplines.join(" · ")}</span>
+      <span class="c-year">${p.year}</span>
+      <span class="c-status"><span class="badge ${p.status}">${p.status.toUpperCase()}</span></span>
+      <span class="c-upd">${fmt(p.updated)}</span>
+    </a>`;
+}
+
+function noteHTML(n, i) {
+  return `
+    <details class="note">
+      <summary>
+        <span class="n-num">${pad(i + 1)}</span>
+        <span class="n-title">${n.title.toUpperCase()}</span>
+        <span class="n-sub">${n.sub}</span>
+        <span class="n-year">${n.year}</span>
+        <span class="n-toggle" aria-hidden="true"></span>
+      </summary>
+      <div class="n-body"><p>${n.body}</p></div>
+    </details>`;
+}
+
+/* ---------- data check (console warnings only, never blocks rendering) ---------- */
+const FRAMES_MIN = 3, FRAMES_MAX = 5; // frames after the logo — provisional range
+function validate() {
+  const warn = (p, msg) => console.warn(`[brand] ${p.id || p.name}: ${msg}`);
+  DATA.projects.forEach(p => {
+    if (!["wip", "done"].includes(p.status)) warn(p, `unknown status "${p.status}"`);
+    if (p.status === "wip" && p.stage != null && !(p.stage >= 0 && p.stage < STAGES.length)) warn(p, `stage should be 0–${STAGES.length - 1} or null`);
+    const frames = p.frames || [];
+    if (frames.length < FRAMES_MIN || frames.length > FRAMES_MAX)
+      warn(p, `${frames.length} frames after the logo (expected ${FRAMES_MIN}–${FRAMES_MAX})`);
+    frames.forEach(([label, ar, meta], k) => {
+      const type = meta ? meta.type : label;            // .md frames carry their type key in meta
+      const known = meta ? FRAME_KEYS : FRAME_TYPES;
+      if (type === FRAME_LOGO || type === "logo") warn(p, `frame ${k + 2} is "${type}" — the logo is added automatically as frame 01`);
+      else if (!known.includes(type)) warn(p, `frame ${k + 2} type "${type}" not in ${known.join(" / ")}`);
+      if (!/^\d+:\d+$/.test(ar || "")) warn(p, `frame ${k + 2} ratio "${ar}" should look like 4:5`);
+    });
+  });
+}
+
+/* ---------- render ---------- */
+function render() {
+  validate();
+  const wip = byStatus("wip");
+  const done = byStatus("done");
+  const ordered = [...wip, ...done];
+
+  const empty = key => `<div class="wrap"><p class="empty">${esc(t(key))}</p></div>`;
+  $("#wip-list").innerHTML = wip.length ? wip.map(projectHTML).join("") : empty("wip.empty");
+  $("#done-list").innerHTML = done.length ? done.map(projectHTML).join("") : empty("done.empty");
+
+  const col = k => esc(t(`aux.index.col_${k}`));
+  $("#index-table").innerHTML = `
+    <div class="index-row index-head-row" aria-hidden="true">
+      <span class="c-num">${col("number")}</span><span class="c-name">${col("project")}</span><span class="c-disc">${col("discipline")}</span>
+      <span class="c-year">${col("year")}</span><span class="c-status">${col("status")}</span><span class="c-upd">${col("updated")}</span>
+    </div>` + ordered.map((p) => {
+      const list = p.status === "wip" ? wip : done;
+      return indexRowHTML(p, list.indexOf(p));
+    }).join("");
+
+  $("#notes-list").innerHTML = DATA.notes.length ? DATA.notes.map(noteHTML).join("")
+    : `<p class="empty">${esc(t("notes.empty"))}</p>`;
+
+  const counts = { wip: wip.length, done: done.length, all: ordered.length, notes: DATA.notes.length };
+  $$("[data-count]").forEach(el => { el.textContent = `(${pad(counts[el.dataset.count])})`; });
+  $$(".nav [data-count]").forEach(el => { el.textContent = counts[el.dataset.count]; });
+  const c = k => esc(t(`aux.counts.${k}`));
+  $("#archive-counts").innerHTML = `${pad(counts.wip)} ${c("in_progress")} · ${pad(counts.done)} ${c("done")}<br>${pad(counts.notes)} ${c("notes")}`;
+
+  // only documented project dates count — notes are not part of "last updated" until they are migrated
+  const dates = DATA.projects.map(p => p.updated).filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d || "")).sort();
+  const last = fmt(dates[dates.length - 1]);
+  $("#last-updated").textContent = last;
+  $$("[data-last-updated]").forEach(el => el.textContent = last);
+
+  setEdge();
+  $$(".gallery").forEach(initGallery);
+  applyFilter();
+}
+
+/* ---------- gallery: align left edge with the grid ---------- */
+function setEdge() {
+  const w = $(".hero .wrap");
+  const left = w.getBoundingClientRect().left + parseFloat(getComputedStyle(w).paddingLeft);
+  document.documentElement.style.setProperty("--edge", `${Math.round(left)}px`);
+}
+
+/* ---------- gallery behaviour ---------- */
+function initGallery(g) {
+  const frames = $$(".frame", g);
+  const bar = g.nextElementSibling;
+  const count = $(".g-count", bar), fill = $(".g-fill", bar);
+  const prev = $('[data-dir="-1"]', bar), next = $('[data-dir="1"]', bar);
+  const edge = () => parseFloat(getComputedStyle(g).paddingLeft);
+  const maxScroll = () => g.scrollWidth - g.clientWidth;
+
+  const current = () => {
+    if (g.scrollLeft >= maxScroll() - 2) return frames.length - 1;
+    let best = 0, bd = Infinity;
+    frames.forEach((f, i) => { const d = Math.abs(f.offsetLeft - edge() - g.scrollLeft); if (d < bd) { bd = d; best = i; } });
+    return best;
+  };
+  const update = () => {
+    const m = maxScroll();
+    count.textContent = `${pad(current() + 1)} / ${pad(frames.length)}`;
+    fill.style.transform = `scaleX(${m > 0 ? g.scrollLeft / m : 1})`;
+    prev.disabled = g.scrollLeft <= 2;
+    next.disabled = g.scrollLeft >= m - 2;
+  };
+  const go = dir => {
+    /* next/previous reachable stop — frames that fit together at the end share one stop */
+    const x = g.scrollLeft, stops = frames.map(f => Math.min(f.offsetLeft - edge(), maxScroll()));
+    const i = dir > 0 ? stops.findIndex(s => s > x + 2) : stops.findLastIndex(s => s < x - 2);
+    if (i >= 0) g.scrollTo({ left: stops[i], behavior: "smooth" });
+  };
+
+  let raf = 0;
+  g.addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(update); }, { passive: true });
+  prev.addEventListener("click", () => go(-1));
+  next.addEventListener("click", () => go(1));
+  g.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); go(-1); }
+  });
+
+  /* mouse drag (touch uses native swipe) */
+  let dragging = false, startX = 0, startScroll = 0;
+  g.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    dragging = true; startX = e.clientX; startScroll = g.scrollLeft;
+    g.classList.add("is-dragging"); g.setPointerCapture(e.pointerId);
+  });
+  g.addEventListener("pointermove", e => { if (dragging) g.scrollLeft = startScroll - (e.clientX - startX); });
+  const end = () => {
+    if (!dragging) return;
+    dragging = false; g.classList.remove("is-dragging");
+    const i = current();
+    g.scrollTo({ left: frames[i].offsetLeft - edge(), behavior: "smooth" });
+  };
+  g.addEventListener("pointerup", end);
+  g.addEventListener("pointercancel", end);
+  g.addEventListener("dragstart", e => e.preventDefault());
+
+  update();
+}
+
+/* ---------- filter ALL / WIP / DONE ---------- */
+function applyFilter() {
+  const f = state.filter;
+  $$(".filter button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.filter === f)));
+  $("#wip").hidden = f === "done";
+  $("#done").hidden = f === "wip";
+  $$(".index-row[data-status]").forEach(r => { r.hidden = f !== "all" && r.dataset.status !== f; });
+  const st = $("#filter-status");
+  st.innerHTML = f === "all" ? "" :
+    `${tx("aux.index.showing_only", { status: f.toUpperCase() })} <button type="button" data-filter-reset>${esc(t("aux.index.show_all"))}</button>`;
+  spy();
+}
+function setFilter(f) { state.filter = f; applyFilter(); }
+
+document.addEventListener("click", e => {
+  const lb = e.target.closest("[data-lang]");
+  if (lb) { e.preventDefault(); setLang(lb.dataset.lang); return; }
+  const fb = e.target.closest("[data-filter]");
+  if (fb) { setFilter(fb.dataset.filter); return; }
+  if (e.target.closest("[data-filter-reset]")) { setFilter("all"); return; }
+
+  /* any in-page link: if its target is hidden by the filter, reset first */
+  const a = e.target.closest('a[href^="#"]');
+  if (a) {
+    const id = a.getAttribute("href").slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    if (el.closest("[hidden]")) setFilter("all");
+    if (id === "top") window.scrollTo({ top: 0, behavior: "smooth" });
+    else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `#${id}`);
+  }
+  if (e.target.closest("[data-placeholder]")) e.preventDefault();
+});
+
+/* ---------- header: scrolled state + scroll-spy ---------- */
+const header = $(".site-header");
+function spy() {
+  header.classList.toggle("is-scrolled", window.scrollY > 8);
+  const y = window.innerHeight * 0.35;
+  let active = "archive";
+  ["archive", "wip", "done", "notes", "about"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && !el.hidden && el.getBoundingClientRect().top <= y) active = id;
+  });
+  $$(".nav a[data-nav]").forEach(a => a.classList.toggle("is-active", a.dataset.nav === active));
+}
+window.addEventListener("scroll", () => requestAnimationFrame(spy), { passive: true });
+window.addEventListener("resize", () => { setEdge(); spy(); });
+
+/* ---------- prototype controls ---------- */
+if (new URLSearchParams(location.search).has("proto")) $("#proto").hidden = false;
+$("#sim-done").addEventListener("click", () => {
+  const p = DATA.projects.find(x => x.id === "nh");
+  if (!p) { console.warn('[brand] prototype: no project with id "nh" — simulation skipped'); return; }
+  if (p.status === "done") { document.getElementById("p-nh").scrollIntoView({ behavior: "smooth" }); return; }
+  p.status = "done";
+  p.updated = "2026-10-30";
+  p.frames = [["System", "4:5"], ["Typography", "3:2"], ["Application", "16:10"], ["Context", "4:5"]];
+  p.log.unshift(["2026-10-30", CONTENT.lang === "en" ? "(prototype) Moved to DONE" : "(protótipo) Movido para DONE"]);
+  state.filter = "all";
+  render();
+  document.getElementById("p-nh").scrollIntoView({ behavior: "smooth" });
+});
+$("#sim-reset").addEventListener("click", () => {
+  DATA.projects = JSON.parse(JSON.stringify(ORIGINAL.projects));
+  DATA.notes = JSON.parse(JSON.stringify(ORIGINAL.notes));
+  state.filter = "all";
+  render();
+});
+
+const overlay = $("#grid-overlay");
+$(".grid", overlay).innerHTML = "<div></div>".repeat(12);
+const toggleGrid = () => overlay.classList.toggle("on");
+$("#toggle-grid").addEventListener("click", toggleGrid);
+document.addEventListener("keydown", e => {
+  if ((e.key === "g" || e.key === "G") && !e.metaKey && !e.ctrlKey && !/input|textarea/i.test(e.target.tagName)) toggleGrid();
+});
+
+/* ==========================================================================
+   CONTENT — /brand/content/*.md → DATA → render()
+   site.md lists the projects (manifest); each project .md is fetched,
+   parsed and converted into the DATA shape above. render() is unchanged.
+   Any failure → the built-in fallback DATA is used and a warning is logged.
+   Parsed sources are kept in CONTENT so another language can be built later.
+   ========================================================================== */
+const CONTENT = { source: "fallback", lang: "pt", site: null, sources: [] };
+const DEFAULT_RATIO = "4:5"; // used while a frame has no documented ratio
+
+/* --- minimal YAML reader for the content files: nested maps, lists,
+       inline [a, b], quoted strings, numbers, null, # comments --- */
+function stripComment(s) {
+  let q = null;
+  for (let k = 0; k < s.length; k++) {
+    const c = s[k], prev = k ? s[k - 1] : " ";
+    if (q) { if (c === q) q = null; }
+    else if ((c === '"' || c === "'") && /[\s:\[,-]/.test(prev)) q = c;
+    else if (c === "#" && /\s/.test(prev)) return s.slice(0, k).trimEnd();
+  }
+  return s;
+}
+function splitInline(s) {
+  const out = []; let cur = "", q = null;
+  for (const c of s) {
+    if (q) { cur += c; if (c === q) q = null; }
+    else if (c === '"' || c === "'") { q = c; cur += c; }
+    else if (c === ",") { out.push(cur); cur = ""; }
+    else cur += c;
+  }
+  out.push(cur);
+  return out.map(x => x.trim()).filter(x => x !== "");
+}
+function scalar(v) {
+  v = v.trim();
+  if (v === "" || v === "~" || v === "null") return null;
+  if (v === "true" || v === "false") return v === "true";
+  if (/^-?\d+(\.\d+)?$/.test(v)) return Number(v);
+  if (v[0] === '"') return JSON.parse(v);
+  if (v[0] === "'") return v.slice(1, -1).replace(/''/g, "'");
+  if (v[0] === "[") return splitInline(v.slice(1, -1)).map(scalar);
+  return v;
+}
+function parseYAML(src) {
+  const lines = src.split(/\r?\n/)
+    .map(raw => ({ indent: raw.search(/\S/), text: stripComment(raw.trim()) }))
+    .filter(l => l.indent >= 0 && l.text !== "");
+  const isItem = t => t === "-" || t.startsWith("- ");
+  let i = 0;
+  const child = indent => (i < lines.length && lines[i].indent > indent ? block() : null);
+  const block = () => (isItem(lines[i].text) ? list(lines[i].indent) : map(lines[i].indent));
+  function map(indent) {
+    const obj = {};
+    while (i < lines.length && lines[i].indent === indent && !isItem(lines[i].text)) {
+      const m = lines[i].text.match(/^([^:]+?):(?:\s+(.*))?$/);
+      if (!m) throw new Error(`YAML: cannot read "${lines[i].text}"`);
+      i++;
+      obj[m[1].trim()] = m[2] ? scalar(m[2]) : child(indent);
+    }
+    return obj;
+  }
+  function list(indent) {
+    const arr = [];
+    while (i < lines.length && lines[i].indent === indent && isItem(lines[i].text)) {
+      const rest = lines[i].text.replace(/^-\s*/, "");
+      if (rest === "") { i++; arr.push(child(indent)); }
+      else if (/^[^"'\[][^:]*:(\s|$)/.test(rest)) { lines[i] = { indent: indent + 2, text: rest }; arr.push(map(indent + 2)); }
+      else { i++; arr.push(scalar(rest)); }
+    }
+    return arr;
+  }
+  return lines.length ? block() : {};
+}
+
+/* --- .md file: frontmatter (YAML between ---) + body (# PT / # EN → ## Section) --- */
+function parseMD(text) {
+  const m = text.match(/(?:^|\n)---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)([\s\S]*)$/);
+  if (!m) throw new Error("no frontmatter block (---)");
+  const body = {}; let lang = null, sec = null;
+  m[2].split(/\r?\n/).forEach(line => {
+    let h;
+    if ((h = line.match(/^#\s+(PT|EN)\s*$/i))) { lang = h[1].toLowerCase(); body[lang] = {}; sec = null; }
+    else if (lang && (h = line.match(/^##\s+(.+?)\s*$/))) { sec = h[1].toLowerCase(); body[lang][sec] = []; }
+    else if (lang && sec) body[lang][sec].push(line);
+  });
+  for (const l in body) for (const s in body[l]) body[l][s] = body[l][s].join("\n").trim();
+  return { data: parseYAML(m[1]) || {}, body };
+}
+
+/* --- conversion: project .md → DATA project (for one language) --- */
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const oneLine = s => String(s || "").replace(/\s+/g, " ").trim();
+const pick = (o, path) => path.split(".").reduce((v, k) => (v == null ? v : v[k]), o);
+
+/* --- interface text: t("section.key") → site.md[section][lang][key], or [section].shared[key] --- */
+const MISSING = new Set();
+function t(key) {
+  if (!CONTENT.site) return "";
+  const [sec, ...rest] = key.split("."), path = rest.join("."), s = CONTENT.site[sec];
+  const v = s ? pick(s[CONTENT.lang], path) ?? pick(s.shared, path) : null;
+  if (v == null || v === "") {
+    if (!MISSING.has(`${CONTENT.lang}:${key}`)) { MISSING.add(`${CONTENT.lang}:${key}`); console.warn(`[brand] site.md: missing "${key}" (${CONTENT.lang})`); }
+    return "";
+  }
+  return v;
+}
+/* escaped text with {placeholders}; values passed in must already be HTML-safe */
+const tx = (key, vars) => esc(t(key)).replace(/\{(\w+)\}/g, (m, k) => (vars[k] ?? m));
+
+function toProject(src, lang) {
+  const d = src.data, text = src.body[lang] || {};
+  const frames = (d.frames || []).map(f => [
+    esc(pick(CONTENT.site, `aux.${lang}.frames.${f.type}`) || f.type), // type label — translated here, type key untouched
+    /^\d+:\d+$/.test(f.ratio || "") ? f.ratio : DEFAULT_RATIO,
+    { type: f.type, image: f.image || "", caption: f.caption || {} }  // kept for images / captions
+  ]);
+  return {
+    id: d.id,
+    name: esc(d.title),
+    year: d.year || "—",
+    status: d.status,
+    updated: d.updated || "",
+    stage: typeof d.stage === "number" ? d.stage : null,
+    disciplines: ((d.disciplines || {})[lang] || []).map(esc),
+    desc: esc(oneLine(text.description)),
+    logo: frames[0],             // frame 01 — always the logo
+    frames: frames.slice(1),
+    log: (d.log || []).map(e => [e.date, esc(e[lang] || "")])
+  };
+}
+function checkSource(src, id) {
+  const d = src.data, errs = [];
+  if (d.id !== id) errs.push(`id "${d.id}" does not match the file name`);
+  if (!d.title) errs.push("missing title");
+  if (!["wip", "done"].includes(d.status)) errs.push(`status "${d.status}" is not wip | done`);
+  if (!Array.isArray(d.frames) || !d.frames[0] || d.frames[0].type !== "logo") errs.push("frame 01 must be logo");
+  if (errs.length) throw new Error(`${id}.md — ${errs.join("; ")}`);
+}
+
+const getText = async path => {
+  const r = await fetch(path, { cache: "no-cache" });
+  if (!r.ok) throw new Error(`${path} → HTTP ${r.status}`);
+  return r.text();
+};
+async function loadSite() {
+  return parseMD(await getText("content/site.md")).data;
+}
+async function loadProjects(site) {
+  const ids = pick(site, "manifest.projects");
+  if (!Array.isArray(ids) || !ids.length) throw new Error("site.md — manifest.projects is empty");
+  return Promise.all(ids.map(async id => {
+    const src = parseMD(await getText(`content/projects/${id}.md`));
+    checkSource(src, id);
+    return src;
+  }));
+}
+
+/* --- DATA for the current language (.md content) --- */
+function buildData() {
+  if (CONTENT.source !== "md") return;
+  DATA.projects = CONTENT.sources.map(s => toProject(s, CONTENT.lang));
+  DATA.notes = []; // notes are not migrated yet — the section shows its empty state
+  ORIGINAL.projects = JSON.parse(JSON.stringify(DATA.projects)); // prototype "Reset data"
+  ORIGINAL.notes = [];
+}
+
+/* --- static interface text: elements carry keys (data-i18n*), values come from site.md --- */
+const LINKS = ["email", "linkedin", "instagram", "website"];
+function applyTexts() {
+  if (!CONTENT.site) return;
+  document.documentElement.lang = t("global.html_lang") || CONTENT.lang;
+  if (t("global.page_title")) document.title = t("global.page_title");
+  if (t("global.page_description")) $('meta[name="description"]').setAttribute("content", t("global.page_description"));
+
+  $$("[data-i18n]").forEach(el => {
+    const v = t(el.dataset.i18n);
+    if (Array.isArray(v)) el.innerHTML = v.map(esc).join("<br>"); // multi-line values
+    else el.textContent = v;
+  });
+  $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  $$("[data-i18n-list]").forEach(el => {
+    const v = t(el.dataset.i18nList);
+    el.innerHTML = (Array.isArray(v) ? v : []).map(x => `<li>${esc(x)}</li>`).join("");
+  });
+  $$("[data-i18n-lead]").forEach(el => { // text before the element's first child (e.g. contact title + subtitle span)
+    let n = el.firstChild;
+    if (!n || n.nodeType !== 3) { n = document.createTextNode(""); el.insertBefore(n, el.firstChild); }
+    n.nodeValue = t(el.dataset.i18nLead);
+  });
+
+  // contact links — only the ones with a URL in site.md
+  $("#contact-links").innerHTML = LINKS.map(k => {
+    const url = pick(CONTENT.site, `links.shared.${k}`);
+    if (!url) return "";
+    const ext = !String(url).startsWith("mailto:");
+    return `<li><a href="${esc(url)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${esc(t(`links.${k}`))} <span>↗</span></a></li>`;
+  }).join("");
+
+  // PT / EN switcher — built from site.md languages
+  const langs = pick(CONTENT.site, "global.shared.languages") || [];
+  $("#lang-switch").innerHTML = langs.map((l, k) =>
+    `${k ? '<span aria-hidden="true">/</span>' : ""}<a href="#" role="button" lang="${esc(l)}" data-lang="${esc(l)}" aria-pressed="${l === CONTENT.lang}"${l === CONTENT.lang ? ' class="is-active"' : ""}>${esc(String(l).toUpperCase())}</a>`
+  ).join("");
+}
+
+/* --- language: PT default, choice persisted per browser --- */
+const LANG_KEY = "brand-archive-lang";
+function setLang(l) {
+  const langs = pick(CONTENT.site, "global.shared.languages") || [];
+  if (!langs.includes(l) || l === CONTENT.lang) return;
+  CONTENT.lang = l;
+  try { localStorage.setItem(LANG_KEY, l); } catch (e) { /* storage unavailable: choice lasts for this visit */ }
+  buildData();
+  applyTexts();
+  render();
+}
+
+/* --- boot: site.md → language → projects (.md, or fallback DATA) → render --- */
+async function boot() {
+  try {
+    CONTENT.site = await loadSite();
+    let stored = null;
+    try { stored = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
+    const langs = pick(CONTENT.site, "global.shared.languages") || [];
+    CONTENT.lang = langs.includes(stored) ? stored : pick(CONTENT.site, "global.shared.default_lang") || "pt";
+    FRAME_KEYS = Object.keys(pick(CONTENT.site, `aux.${CONTENT.lang}.frames`) || {});
+  } catch (err) {
+    console.warn("[brand] Could not load content/site.md — interface texts are unavailable.", err);
+  }
+  if (CONTENT.site) {
+    try {
+      CONTENT.sources = await loadProjects(CONTENT.site);
+      CONTENT.source = "md";
+    } catch (err) {
+      console.warn("[brand] Could not load content/projects/*.md — showing the built-in fallback DATA (temporary).", err);
+    }
+  }
+  buildData();
+  applyTexts();
+  render();
+  spy();
+  /* deep link (#p-id): the target only exists after render, so scroll now */
+  const target = location.hash && document.getElementById(location.hash.slice(1));
+  if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: "instant", block: "start" }));
+}
+boot();
+</script>
+</body>
+</html>
