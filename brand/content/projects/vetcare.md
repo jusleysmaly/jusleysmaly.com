@@ -2,7 +2,7 @@
 id: "vetcare"
 title: "VetCare"
 status: "done"
-year: ""
+year: 2026
 updated: ""
 stage: null
 disciplines:

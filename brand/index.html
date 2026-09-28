@@ -142,6 +142,8 @@ section,article{scroll-margin-top:var(--header-h)}
 .p-meta{grid-column:9/13;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px;padding-top:.7em}
 .p-meta dt{margin-bottom:4px}
 .p-meta dd{font-size:14px;line-height:1.4}
+.p-case{text-decoration:none;white-space:nowrap}   /* external full case — same language as the contact links */
+.p-case:hover{color:var(--muted)}
 
 .badge{
   display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.08em;
@@ -239,6 +241,7 @@ section,article{scroll-margin-top:var(--header-h)}
 /* ---------- ABOUT ---------- */
 .about .a-label{grid-column:1/4}
 .about .a-body{grid-column:4/13}
+.about .a-photo{display:block;width:min(100%,200px);height:auto;margin-top:24px} /* author portrait — natural ratio, no crop */
 .about h3{font-size:clamp(32px,3.6vw,52px);letter-spacing:-.03em;line-height:1;font-weight:700}
 .about .a-role{margin-top:10px;font-size:15px}
 .about .a-text{margin-top:28px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
@@ -251,7 +254,7 @@ section,article{scroll-margin-top:var(--header-h)}
 .contact h2 span{display:block;color:var(--muted)}
 .contact-links{
   grid-column:1/-1;margin-top:clamp(48px,8vh,88px);list-style:none;
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));column-gap:var(--gap); /* 5 links in one row on desktop; wraps before labels get cramped */
 }
 .contact-links a{
   display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--fg);
@@ -328,6 +331,7 @@ section,article{scroll-margin-top:var(--header-h)}
 
   .about .a-label,.about .a-body{grid-column:1/-1}
   .about .a-body{margin-top:24px}
+  .about .a-photo{width:128px;margin-top:20px}
   .about .a-fields li{flex:1 1 50%;padding-bottom:12px}
 
   .contact h2{font-size:44px}
@@ -435,7 +439,10 @@ section,article{scroll-margin-top:var(--header-h)}
 <!-- ============================== ABOUT ============================== -->
 <section class="section about" id="about" data-i18n-aria="about.label">
   <div class="wrap grid">
-    <div class="a-label label" data-i18n="about.label"></div>
+    <div class="a-label">
+      <div class="label" data-i18n="about.label"></div>
+      <img class="a-photo" src="assets/site/jusley-smaly.webp" alt="Jusley Smaly" loading="lazy" decoding="async">
+    </div>
     <div class="a-body">
       <h3 data-i18n="global.name"></h3>
       <p class="a-role muted" data-i18n="about.role"></p>
@@ -468,7 +475,7 @@ section,article{scroll-margin-top:var(--header-h)}
     <!-- Prototype-only controls: hidden by default, shown with ?proto in the URL -->
     <div class="proto" id="proto" aria-label="Prototype controls" hidden>
       <span class="label">Prototype controls — not part of the final site</span>
-      <button type="button" id="sim-done">Simulate NH → DONE</button>
+      <button type="button" id="sim-done">Simulate Novo Horizonte → DONE</button>
       <button type="button" id="sim-reset">Reset data</button>
       <button type="button" id="toggle-grid">Toggle grid (G)</button>
     </div>
@@ -495,7 +502,7 @@ let FRAME_KEYS = []; // frame type keys from site.md → aux.frames (.md content
 const DATA = {
   projects: [
     {
-      id: "nh", name: "NH", year: 2026, status: "wip", updated: "2026-09-26",
+      id: "nh", name: "Novo Horizonte", year: 2026, status: "wip", updated: "2026-09-26",
       disciplines: ["Brand Strategy", "Identity"],
       stage: 1, // 0 Strategy · 1 Identity · 2 System · 3 Application
       desc: "Brand platform and identity in development. Currently testing typographic territories and the first system rules.",
@@ -619,7 +626,8 @@ function projectHTML(p, i) {
           <div><dt class="label muted">${esc(t("aux.project.discipline"))}</dt><dd>${p.disciplines.join(" · ")}</dd></div>
           <div><dt class="label muted">${esc(t("aux.project.year"))}</dt><dd>${p.year}</dd></div>
           <div><dt class="label muted">${esc(t("aux.project.status"))}</dt><dd><span class="badge ${p.status}">${p.status.toUpperCase()}</span></dd></div>
-          <div><dt class="label muted">${esc(t(isWip ? "aux.project.updated" : "aux.project.completed"))}</dt><dd>${fmt(p.updated)}</dd></div>
+          ${p.case ? `<div><dt class="label muted">${esc(t("aux.project.case"))}</dt><dd><a class="p-case label" href="${esc(p.case.url)}" target="_blank" rel="noopener" aria-label="${esc(p.case.label || t("aux.project.case_link"))} — ${esc(t("aux.project.new_tab"))}">${esc(p.case.label || t("aux.project.case_link"))} <span aria-hidden="true">↗</span></a></dd></div>`
+          : `<div><dt class="label muted">${esc(t(isWip ? "aux.project.updated" : "aux.project.completed"))}</dt><dd>${fmt(p.updated)}</dd></div>`}
         </dl>
       </header>
     </div>
@@ -702,10 +710,10 @@ function render() {
     <div class="index-row index-head-row" aria-hidden="true">
       <span class="c-num">${col("number")}</span><span class="c-name">${col("project")}</span><span class="c-disc">${col("discipline")}</span>
       <span class="c-year">${col("year")}</span><span class="c-status">${col("status")}</span><span class="c-upd">${col("updated")}</span>
-    </div>` + ordered.map((p) => {
-      const list = p.status === "wip" ? wip : done;
-      return indexRowHTML(p, list.indexOf(p));
-    }).join("");
+    </div>` + DATA.projects.slice()
+      // WIP first, then DONE; newest year first; same year keeps the manifest order (stable sort)
+      .sort((a, b) => (a.status === "wip" ? 0 : 1) - (b.status === "wip" ? 0 : 1) || (+b.year || 0) - (+a.year || 0))
+      .map(indexRowHTML).join("");
 
   $("#notes-list").innerHTML = DATA.notes.length ? DATA.notes.map(noteHTML).join("")
     : `<p class="empty">${esc(t("notes.empty"))}</p>`;
@@ -1000,7 +1008,9 @@ function toProject(src, lang) {
     desc: esc(oneLine(text.description)),
     logo: frames[0],             // frame 01 — always the logo
     frames: frames.slice(1),
-    log: (d.log || []).map(e => [e.date, esc(e[lang] || "")])
+    log: (d.log || []).map(e => [e.date, esc(e[lang] || "")]),
+    // external full case (e.g. Behance) — only when a real http(s) URL is documented
+    case: d.case && /^https?:\/\//.test(d.case.url || "") ? { url: d.case.url, label: d.case.label || "" } : null
   };
 }
 function checkSource(src, id) {
@@ -1040,7 +1050,7 @@ function buildData() {
 }
 
 /* --- static interface text: elements carry keys (data-i18n*), values come from site.md --- */
-const LINKS = ["email", "linkedin", "instagram", "website"];
+const LINKS = ["email", "linkedin", "instagram", "github", "website"];
 function applyTexts() {
   if (!CONTENT.site) return;
   document.documentElement.lang = t("global.html_lang") || CONTENT.lang;

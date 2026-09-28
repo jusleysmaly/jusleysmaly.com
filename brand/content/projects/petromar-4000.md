@@ -34,6 +34,9 @@ frames:
       pt: "Fotografia"
       en: "Photography"
 log: []
+case:
+  label: "View full case"
+  url: "https://www.behance.net/gallery/224598133/Navigating-the-Future-of-Offshore-Excellence"
 ---
 
 # PT

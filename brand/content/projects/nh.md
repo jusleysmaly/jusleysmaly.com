@@ -1,8 +1,8 @@
 ---
 id: "nh"
-title: "NH"
+title: "Novo Horizonte"
 status: "wip"
-year: ""
+year: 2026
 updated: ""
 stage: null
 disciplines:
@@ -32,7 +32,7 @@ Redesign da marca de uma empresa de transporte de funcionários de Manaus, com c
 
 ## Context
 
-A NH leva trabalhadores ao Distrito Industrial de Manaus, e sua trajetória acompanha a história da Zona Franca de Manaus.
+A Novo Horizonte leva trabalhadores ao Distrito Industrial de Manaus, e sua trajetória acompanha a história da Zona Franca de Manaus.
 
 ## Challenge
 
@@ -57,7 +57,7 @@ Redesign of the brand of an employee transport company in Manaus, with around 42
 
 ## Context
 
-NH carries workers to the Manaus Industrial District, and its path follows the history of the Manaus Free Trade Zone.
+Novo Horizonte carries workers to the Manaus Industrial District, and its path follows the history of the Manaus Free Trade Zone.
 
 ## Challenge
 

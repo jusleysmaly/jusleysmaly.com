@@ -2,7 +2,7 @@
 id: "panai"
 title: "Panaí"
 status: "done"
-year: ""
+year: 2025
 updated: ""
 stage: 3
 disciplines:

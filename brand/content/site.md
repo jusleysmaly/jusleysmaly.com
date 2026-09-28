@@ -16,8 +16,10 @@ Rules:
 # ======================================================
 # MANIFEST — which content files exist (a static server cannot list folders)
 # Order: WIP first, then DONE. Each id = content/projects/<id>.md
+# The site sorts WIP → DONE, then newest year first; projects of the SAME
+# year keep the order of this list — place new projects accordingly.
 #
-# OFFICIAL SELECTION — exactly these 8 projects.
+# OFFICIAL SELECTION — exactly these 9 projects.
 # NOT part of the selection (temporary placeholders still in index.html DATA,
 # to be replaced by this manifest — do not create files for them):
 #   Alpha · Saccaro · Tidelli · Baniwa
@@ -28,12 +30,13 @@ manifest:
     - uatuma-lio
     - nh
     # DONE
-    - greenworld-america
-    - greenfood-superfood-america
-    - postos-3000
-    - petromar-4000
-    - panai
     - vetcare
+    - postos-3000
+    - greenfood-superfood-america
+    - greenworld-america
+    - panai
+    - petromar-4000
+    - joria-guerreiro
   notes: []
 
 # ======================================================
@@ -194,16 +197,19 @@ links:
     email: "mailto:me@jusleysmaly.com"
     linkedin: "https://www.linkedin.com/in/jusley-smaly/"
     instagram: "https://www.instagram.com/jusleysmaly/"
+    github: "https://github.com/jusleysmaly"
     website: "https://jusleysmaly.com"
   pt:
     email: "E-MAIL"
     linkedin: "LINKEDIN"
     instagram: "INSTAGRAM"
+    github: "GITHUB"
     website: "JUSLEYSMALY.COM"
   en:
     email: "EMAIL"
     linkedin: "LINKEDIN"
     instagram: "INSTAGRAM"
+    github: "GITHUB"
     website: "JUSLEYSMALY.COM"
 
 # ======================================================
@@ -248,6 +254,9 @@ aux:
       status: "Status"
       updated: "Atualizado"
       completed: "Concluído"
+      case: "Case"
+      case_link: "View full case"    # used only if the project's case.label is empty
+      new_tab: "abre em nova aba"
       log: "Registro"
       current_stage: "Estágio atual"
       stage_unknown: "Estágio não definido"
@@ -314,6 +323,9 @@ aux:
       status: "Status"
       updated: "Updated"
       completed: "Completed"
+      case: "Case"
+      case_link: "View full case"    # used only if the project's case.label is empty
+      new_tab: "opens in a new tab"
       log: "Log"
       current_stage: "Current stage"
       stage_unknown: "Stage not defined"

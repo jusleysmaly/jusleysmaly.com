@@ -37,6 +37,14 @@ Rules:
   - `caption.pt` / `caption.en`: short frame label.
 - `log`: only events with a complete, documented date. Newest first.
   No documented events → `log: []`.
+- `case` (optional): external full case (e.g. Behance). Add the block only when
+  the project really has one — never invent URLs. With `case.url` the metadata
+  shows CASE + "VIEW FULL CASE ↗" (new tab) instead of the completed/updated date.
+  ```
+  case:
+    label: "View full case"
+    url: "https://…"
+  ```
 - Text: short and editorial — a working archive, not a case study.
   Leave a section empty rather than writing unconfirmed content.
 
