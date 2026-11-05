@@ -18,7 +18,7 @@ global:
   pt:
     html_lang: "pt-BR"
     page_title: "One Page Website — por Jusley Smaly"
-    page_description: "Sites profissionais de página única para apresentar o que você faz, mostrar seus diferenciais e facilitar o contato com seus clientes. R$ 2.000, pagamento único."
+    page_description: "Sites profissionais de página única para apresentar o que você faz, mostrar seus diferenciais e facilitar o contato com seus clientes. R$ 2.000, à vista ou parcelado."
     by: "por"
     back_to_top_aria: "WEBSITES por Jusley Smaly — voltar ao topo"
     lang_label: "Idioma"
@@ -45,7 +45,7 @@ hero:
     subtitle: "Um site profissional para apresentar o que você faz, mostrar seus diferenciais e facilitar o contato com seus clientes."
     price_label: "Investimento"
     price: "R$ 2.000"
-    price_note: "Pagamento único"
+    price_note: "À vista ou parcelado."
     designer_label: "Designer"
     designer_role: "Product Designer"
     cta: "Quero meu site"
@@ -98,6 +98,16 @@ process:
         text: "Configuramos e publicamos seu site para que ele esteja disponível na internet."
 
 # ======================================================
+# 04B — PORTFOLIO
+# ======================================================
+portfolio:
+  pt:
+    label: "Portfólio"
+    title: "Sites que já ganharam vida."
+    text: "Uma seleção de projetos digitais que desenvolvi em diferentes contextos, explorando soluções visuais e experiências para diferentes necessidades."
+    cta: "Ver projetos no Behance"
+
+# ======================================================
 # 05 — PRICING
 # ======================================================
 pricing:
@@ -106,7 +116,7 @@ pricing:
     title: "Um investimento simples. Uma presença que é sua."
     product: "One Page Website"
     price: "R$ 2.000"
-    price_note: "Pagamento único"
+    price_note: "À vista ou parcelado."
     includes_label: "Inclui"
     includes:
       - "Planejamento da estrutura"
@@ -154,6 +164,7 @@ contact:
 # ======================================================
 # LINKS   (`whatsapp` is used by every CTA; the others by CONTACT)
 # Only links with a URL are shown. Same addresses as jusleysmaly.com.
+# `behance` is used only by the PORTFOLIO CTA.
 # ======================================================
 links:
   shared:
@@ -163,6 +174,7 @@ links:
     instagram: "https://www.instagram.com/jusleysmaly/"
     github: "https://github.com/jusleysmaly"
     website: "https://jusleysmaly.com"
+    behance: "https://www.behance.net/gallery/99241463/Websites"
   pt:
     email: "E-MAIL"
     linkedin: "LINKEDIN"

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- title / description: static PT default for crawlers and link previews; replaced at runtime from content/site.md -->
 <title>One Page Website — por Jusley Smaly</title>
-<meta name="description" content="Sites profissionais de página única para apresentar o que você faz, mostrar seus diferenciais e facilitar o contato com seus clientes. R$ 2.000, pagamento único.">
+<meta name="description" content="Sites profissionais de página única para apresentar o que você faz, mostrar seus diferenciais e facilitar o contato com seus clientes. R$ 2.000, à vista ou parcelado.">
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-J68MJSMJNC"></script>
 <script>
@@ -109,6 +109,7 @@ section,article{scroll-margin-top:var(--header-h)}
 .s-title{font-size:clamp(40px,5.2vw,80px);line-height:.95;letter-spacing:-.035em;font-weight:700}
 .s-text{margin-top:28px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
 .s-text + .s-text{margin-top:16px}
+.s-cta{margin-top:clamp(28px,5vh,44px)}
 
 /* ---------- ROWS (features / includes — same rules as the archive index) ---------- */
 .rows{
@@ -299,6 +300,18 @@ section,article{scroll-margin-top:var(--header-h)}
       <h2 class="s-title" id="processo-title" data-i18n="process.title"></h2>
     </div>
     <ol class="steps" id="steps"></ol>
+  </div>
+</section>
+
+<!-- ============================== 04B PORTFOLIO ============================== -->
+<section class="section" id="portfolio" aria-labelledby="portfolio-title">
+  <div class="wrap grid">
+    <div class="s-label label" data-i18n="portfolio.label"></div>
+    <div class="s-body">
+      <h2 class="s-title" id="portfolio-title" data-i18n="portfolio.title"></h2>
+      <p class="s-text" data-i18n="portfolio.text"></p>
+      <div class="s-cta"><a class="cta" data-link="behance" target="_blank" rel="noopener noreferrer"><span data-i18n="portfolio.cta"></span> <span aria-hidden="true">↗</span></a></div>
+    </div>
   </div>
 </section>
 
