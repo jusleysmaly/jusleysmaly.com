@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- title / description: static PT default for crawlers and link previews; replaced at runtime from content/site.md -->
+<title>One Page Website — por Jusley Smaly</title>
+<meta name="description" content="Sites profissionais de página única para apresentar o que você faz, mostrar seus diferenciais e facilitar o contato com seus clientes. R$ 2.000, pagamento único.">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J68MJSMJNC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J68MJSMJNC');
+</script>
+<style>
+/* ==========================================================================
+   WEBSITES — One Page Website landing page
+   Same tokens, grid and components as /brand/
+   ========================================================================== */
+
+:root{
+  --bg:#ffffff;
+  --fg:#000000;
+  --ink-2:#333333;
+  --muted:#707070;
+  --line:#d9d9d9;
+
+  --max:1360px;                               /* content max width */
+  --gutter:clamp(16px,3.3vw,48px);            /* side margin */
+  --gap:clamp(12px,1.6vw,24px);               /* column gap (12-col grid) */
+  --header-h:64px;
+
+  --s-section:clamp(96px,16vh,180px);         /* space before a section */
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+  font-size:15px;line-height:1.5;color:var(--fg);background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+button{font:inherit;color:inherit}
+section,article{scroll-margin-top:var(--header-h)}
+[hidden]{display:none !important}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap)}
+.label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;line-height:1.3}
+.muted{color:var(--muted)}
+
+/* ---------- HEADER ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;background:var(--bg);
+  border-bottom:1px solid transparent;transition:border-color .2s;
+}
+.site-header.is-scrolled{border-bottom-color:var(--line)}
+.header-inner{height:var(--header-h);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none}
+.brand b{font-size:15px;font-weight:700;letter-spacing:.06em}
+.brand span{font-size:13px;color:var(--muted)}
+.nav{display:flex;gap:28px}
+.nav a{
+  font-size:12px;letter-spacing:.08em;text-decoration:none;color:var(--muted);
+  position:relative;padding:6px 0;display:inline-flex;gap:4px;align-items:baseline;
+}
+.nav a:hover,.nav a.is-active{color:var(--fg)}
+.nav a.is-active::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--fg)}
+.nav .count{font-size:9px;letter-spacing:0;transform:translateY(-5px)}
+.nav .lang{display:flex;align-items:baseline;gap:6px;font-size:12px;color:var(--muted)} /* PT / EN — links reuse .nav a */
+
+/* ---------- CTA (same language as the active filter button / DONE badge) ---------- */
+.cta{
+  display:inline-flex;justify-content:space-between;align-items:baseline;gap:24px;
+  background:var(--fg);color:var(--bg);border:1px solid var(--fg);padding:16px 20px;
+  font-size:13px;letter-spacing:.08em;text-decoration:none;transition:background .15s,color .15s;
+}
+.cta:hover{background:var(--bg);color:var(--fg)}
+.cta:focus-visible{outline:1px solid var(--fg);outline-offset:2px}
+
+/* ---------- HERO ---------- */
+.hero{padding:clamp(56px,10vh,112px) 0 clamp(48px,8vh,88px)}
+.hero-kicker{grid-column:1/-1;display:flex;gap:24px}
+.hero h1{
+  grid-column:1/11;margin-top:28px;
+  font-size:clamp(38px,5.6vw,84px);line-height:1;letter-spacing:-.035em;font-weight:700;
+}
+.hero-sub{grid-column:1/8;margin-top:clamp(20px,3.5vh,32px);font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
+.hero-meta{
+  grid-column:1/-1;margin-top:clamp(40px,7vh,80px);
+  border-top:1px solid var(--fg);padding-top:16px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);row-gap:20px;
+}
+.hero-meta dt{margin-bottom:6px}
+.hero-meta dd{font-size:14px;line-height:1.45}
+.hero-meta .h-price{grid-column:span 2}
+.hero-meta .h-price b{display:block;font-size:clamp(32px,3.6vw,52px);line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.hero-meta .h-price span{display:block;margin-top:8px}
+.hero-meta .h-cta{display:flex;justify-content:flex-end;align-items:flex-start}
+
+/* ---------- SECTION (label column + content column, as in ABOUT) ---------- */
+.section{padding-top:var(--s-section)}
+.s-label{grid-column:1/4}
+.s-body{grid-column:4/13}
+.s-title{font-size:clamp(40px,5.2vw,80px);line-height:.95;letter-spacing:-.035em;font-weight:700}
+.s-text{margin-top:28px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
+.s-text + .s-text{margin-top:16px}
+
+/* ---------- ROWS (features / includes — same rules as the archive index) ---------- */
+.rows{
+  list-style:none;counter-reset:row;border-top:1px solid var(--fg);
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gap);
+}
+.s-body .rows{margin-top:clamp(40px,7vh,72px)}
+.rows li{counter-increment:row;display:flex;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;font-weight:700}
+.rows li::before{content:counter(row,decimal-leading-zero);flex:0 0 24px;font-size:12px;font-weight:400;color:var(--muted)}
+.rows.plain{grid-template-columns:1fr}
+.rows.plain li{font-weight:400}
+.rows.plain li::before{content:none}
+
+/* ---------- STEPS ---------- */
+.steps{
+  grid-column:1/-1;margin-top:clamp(48px,9vh,96px);list-style:none;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);
+}
+.steps li{border-top:1px solid var(--fg);padding-top:12px}
+.steps .st-num{font-size:12px;color:var(--muted)}
+.steps h3{margin-top:clamp(24px,5vh,48px);font-size:clamp(20px,2vw,28px);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.steps p{margin-top:12px;color:var(--ink-2);max-width:36ch}
+
+/* ---------- OFFER ---------- */
+.offer{
+  grid-column:1/-1;margin-top:clamp(48px,9vh,96px);border-top:1px solid var(--fg);padding-top:16px;
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);
+}
+.offer-main{grid-column:1/8}
+.offer-price{margin-top:clamp(24px,5vh,48px);font-size:clamp(64px,10vw,148px);line-height:.82;letter-spacing:-.05em;font-weight:700;white-space:nowrap}
+.offer-note{margin-top:20px;font-size:14px}
+.offer-main .cta{margin-top:clamp(32px,6vh,56px)}
+.offer-side{grid-column:9/13}
+.offer-side .rows{margin-top:12px}
+.addon{
+  grid-column:1/-1;margin-top:clamp(48px,9vh,96px);border-top:1px solid var(--line);padding-top:16px;
+  display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap);row-gap:8px;align-items:baseline;
+}
+.addon .label{grid-column:1/4}
+.addon-name{grid-column:4/9;font-size:14px;font-weight:700}
+.addon-price{grid-column:9/13;font-size:14px;font-weight:700;white-space:nowrap}
+.addon-note{grid-column:4/13;margin-top:8px;font-size:13px;color:var(--muted)}
+
+/* ---------- ABOUT ---------- */
+.about .a-label{grid-column:1/4}
+.about .a-body{grid-column:4/13}
+.about .a-photo{display:block;width:min(100%,200px);height:auto;margin-top:24px} /* author portrait — natural ratio, no crop */
+.about h3{font-size:clamp(32px,3.6vw,52px);letter-spacing:-.03em;line-height:1;font-weight:700}
+.about .a-role{margin-top:10px;font-size:15px}
+.about .a-text{margin-top:28px;font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
+.about .a-fields{margin-top:36px;display:flex;flex-wrap:wrap;border-top:1px solid var(--line)}
+.about .a-fields li{list-style:none;flex:1 1 0;min-width:120px;padding-top:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.about .a-name{margin-top:12px;font-size:14px;font-weight:700}
+.about .a-role{margin-top:2px;font-size:14px}
+
+/* ---------- CONTACT ---------- */
+.contact{padding:var(--s-section) 0 clamp(96px,16vh,180px)}
+.contact h2{grid-column:1/-1;margin-top:24px;font-size:clamp(44px,7.4vw,112px);line-height:.95;letter-spacing:-.045em;font-weight:700}
+.contact h2 span{display:block;color:var(--muted)}
+.contact-links{
+  grid-column:1/-1;margin-top:clamp(48px,8vh,88px);list-style:none;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));column-gap:var(--gap); /* 5 links in one row on desktop; wraps before labels get cramped */
+}
+.contact-links a{
+  display:flex;justify-content:space-between;padding:16px 0;border-top:1px solid var(--fg);
+  text-decoration:none;font-size:13px;letter-spacing:.08em;
+}
+.contact-links a:hover{color:var(--muted)}
+.contact-text{grid-column:1/8;margin-top:clamp(24px,4vh,36px);font-size:clamp(17px,1.5vw,21px);line-height:1.45;max-width:52ch}
+.contact-cta{grid-column:1/-1;margin-top:clamp(28px,5vh,44px)}
+
+/* ---------- FOOTER ---------- */
+.site-footer{border-top:1px solid var(--line);padding:24px 0 40px}
+.footer-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.footer-row a{text-decoration:none;color:var(--fg)}
+
+/* ---------- MOBILE (≈390px) ---------- */
+@media (max-width:760px){
+  :root{
+    --header-h:56px;
+    --s-section:96px;
+  }
+  body{font-size:15px}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .brand span{display:none}
+  .nav{gap:10px}
+  .nav .lang{gap:4px}
+  .nav a{font-size:11px;letter-spacing:.06em}
+
+  .hero{padding:40px 0 48px}
+  .hero h1{grid-column:1/-1;margin-top:18px;font-size:40px}
+  .hero-sub{grid-column:1/-1}
+  .hero-meta{grid-template-columns:1fr;margin-top:36px}
+  .hero-meta .h-price{grid-column:auto}
+  .hero-meta .h-cta{display:block}
+  .cta{display:flex}
+
+  .s-label,.s-body{grid-column:1/-1}
+  .s-body{margin-top:24px}
+  .s-title{font-size:min(44px,11.5vw)}
+  .rows{grid-template-columns:1fr}
+
+  .steps{grid-template-columns:1fr;row-gap:32px}
+  .steps h3{margin-top:16px}
+
+  .offer,.addon{grid-template-columns:1fr}
+  .offer-main,.offer-side,.addon .label,.addon-name,.addon-price,.addon-note{grid-column:1/-1}
+  .offer-price{font-size:19vw}
+  .offer-side{margin-top:48px}
+
+  .about .a-label,.about .a-body{grid-column:1/-1}
+  .about .a-body{margin-top:24px}
+  .about .a-photo{width:128px;margin-top:20px}
+  .about .a-fields li{flex:1 1 50%;padding-bottom:12px}
+
+  .contact h2{font-size:min(44px,11.5vw)}
+  .contact-text{grid-column:1/-1}
+  .contact-links{grid-template-columns:1fr}
+}
+/* narrow phones: the header keeps only the links that fit */
+@media (max-width:480px){ .nav a[data-nav="produto"],.nav a[data-nav="processo"]{display:none} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" data-i18n-aria="global.back_to_top_aria">
+      <b data-i18n="global.brand_mark"></b><span><span data-i18n="global.by"></span> <span data-i18n="global.name"></span></span>
+    </a>
+    <nav class="nav" data-i18n-aria="nav.aria">
+      <a href="#produto" data-nav="produto" data-i18n="nav.product"></a>
+      <a href="#processo" data-nav="processo" data-i18n="nav.process"></a>
+      <a href="#investimento" data-nav="investimento" data-i18n="nav.pricing"></a>
+      <a href="#sobre" data-nav="sobre" data-i18n="nav.about"></a>
+      <span class="lang" id="lang-switch" role="group" data-i18n-aria="global.lang_label"></span>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================== 01 HERO ============================== -->
+<section class="hero" data-i18n-aria="hero.aria">
+  <div class="wrap grid">
+    <div class="hero-kicker label"><span data-i18n="hero.kicker"></span></div>
+    <h1 data-i18n="hero.title"></h1>
+    <p class="hero-sub" data-i18n="hero.subtitle"></p>
+    <dl class="hero-meta">
+      <div class="h-price"><dt class="label muted" data-i18n="hero.price_label"></dt><dd><b data-i18n="hero.price"></b><span data-i18n="hero.price_note"></span></dd></div>
+      <div><dt class="label muted" data-i18n="hero.designer_label"></dt><dd><span data-i18n="global.name"></span><br><span data-i18n="hero.designer_role"></span></dd></div>
+      <div class="h-cta"><a class="cta" data-link="whatsapp" target="_blank" rel="noopener"><span data-i18n="hero.cta"></span> <span aria-hidden="true">↗</span></a></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============================== 02 PROPOSAL ============================== -->
+<section class="section" id="proposta" aria-labelledby="proposta-title">
+  <div class="wrap grid">
+    <div class="s-label label" data-i18n="proposal.label"></div>
+    <div class="s-body">
+      <h2 class="s-title" id="proposta-title" data-i18n="proposal.title"></h2>
+      <p class="s-text" data-i18n="proposal.text"></p>
+      <p class="s-text" data-i18n="proposal.complement"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 PRODUCT ============================== -->
+<section class="section" id="produto" aria-labelledby="produto-title">
+  <div class="wrap grid">
+    <div class="s-label label" data-i18n="product.label"></div>
+    <div class="s-body">
+      <h2 class="s-title" id="produto-title" data-i18n="product.title"></h2>
+      <p class="s-text" data-i18n="product.text"></p>
+      <ul class="rows" data-i18n-list="product.features"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 PROCESS ============================== -->
+<section class="section" id="processo" aria-labelledby="processo-title">
+  <div class="wrap grid">
+    <div class="s-label label" data-i18n="process.label"></div>
+    <div class="s-body">
+      <h2 class="s-title" id="processo-title" data-i18n="process.title"></h2>
+    </div>
+    <ol class="steps" id="steps"></ol>
+  </div>
+</section>
+
+<!-- ============================== 05 PRICING ============================== -->
+<section class="section" id="investimento" aria-labelledby="investimento-title">
+  <div class="wrap grid">
+    <div class="s-label label" data-i18n="pricing.label"></div>
+    <div class="s-body">
+      <h2 class="s-title" id="investimento-title" data-i18n="pricing.title"></h2>
+    </div>
+    <div class="offer">
+      <div class="offer-main">
+        <div class="label" data-i18n="pricing.product"></div>
+        <p class="offer-price" data-i18n="pricing.price"></p>
+        <p class="offer-note" data-i18n="pricing.price_note"></p>
+        <a class="cta" data-link="whatsapp" target="_blank" rel="noopener"><span data-i18n="pricing.cta"></span> <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="offer-side">
+        <div class="label muted" data-i18n="pricing.includes_label"></div>
+        <ul class="rows plain" data-i18n-list="pricing.includes"></ul>
+      </div>
+    </div>
+    <div class="addon">
+      <div class="label muted" data-i18n="pricing.deadline_label"></div>
+      <div class="addon-name" data-i18n="pricing.deadline"></div>
+      <p class="addon-note" data-i18n="pricing.deadline_note"></p>
+    </div>
+    <div class="addon">
+      <div class="label muted" data-i18n="pricing.addon_label"></div>
+      <div class="addon-name" data-i18n="pricing.addon_name"></div>
+      <div class="addon-price" data-i18n="pricing.addon_price"></div>
+      <p class="addon-note" data-i18n="pricing.note"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 ABOUT ============================== -->
+<section class="section about" id="sobre" data-i18n-aria="about.label">
+  <div class="wrap grid">
+    <div class="a-label">
+      <div class="label" data-i18n="about.label"></div>
+      <img class="a-photo" src="assets/site/jusley-smaly.webp" alt="Jusley Smaly" loading="lazy" decoding="async">
+      <p class="a-name" data-i18n="global.name"></p>
+      <p class="a-role muted" data-i18n="about.role"></p>
+    </div>
+    <div class="a-body">
+      <h2 class="s-title" data-i18n="about.title"></h2>
+      <p class="a-text" data-i18n="about.text"></p>
+      <p class="a-text" data-i18n="about.text_2"></p>
+      <ul class="a-fields" data-i18n-list="about.fields"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 07 CONTACT ============================== -->
+<section class="contact" id="contato" data-i18n-aria="contact.label">
+  <div class="wrap grid">
+    <div class="label" style="grid-column:1/-1" data-i18n="contact.label"></div>
+    <h2 data-i18n-lead="contact.title"><span data-i18n="contact.subtitle"></span></h2>
+    <p class="contact-text" data-i18n="contact.text"></p>
+    <div class="contact-cta"><a class="cta" data-link="whatsapp" target="_blank" rel="noopener"><span data-i18n="contact.cta"></span> <span aria-hidden="true">↗</span></a></div>
+    <ul class="contact-links" id="contact-links"></ul>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-row">
+      <span data-i18n="footer.copyright"></span>
+      <span data-i18n="footer.product_line"></span>
+      <a href="#top" data-i18n="footer.back_to_top"></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const $ = (s, c = document) => c.querySelector(s);
+const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+const pad = n => String(n).padStart(2, "0");
+
+document.addEventListener("click", e => {
+  const lb = e.target.closest("[data-lang]");
+  if (lb) { e.preventDefault(); setLang(lb.dataset.lang); return; }
+
+  const a = e.target.closest('a[href^="#"]');
+  if (a) {
+    const id = a.getAttribute("href").slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    if (id === "top") window.scrollTo({ top: 0, behavior: "smooth" });
+    else el.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `#${id}`);
+  }
+});
+
+/* ---------- header: scrolled state + scroll-spy ---------- */
+const header = $(".site-header");
+function spy() {
+  header.classList.toggle("is-scrolled", window.scrollY > 8);
+  const y = window.innerHeight * 0.35;
+  let active = "";
+  ["produto", "processo", "investimento", "sobre"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= y) active = id;
+  });
+  $$(".nav a[data-nav]").forEach(a => a.classList.toggle("is-active", a.dataset.nav === active));
+}
+window.addEventListener("scroll", () => requestAnimationFrame(spy), { passive: true });
+window.addEventListener("resize", spy);
+
+/* ==========================================================================
+   CONTENT — /websites/content/site.md → interface text
+   ========================================================================== */
+const CONTENT = { lang: "pt", site: null };
+
+/* --- minimal YAML reader for the content files: nested maps, lists,
+       inline [a, b], quoted strings, numbers, null, # comments --- */
+function stripComment(s) {
+  let q = null;
+  for (let k = 0; k < s.length; k++) {
+    const c = s[k], prev = k ? s[k - 1] : " ";
+    if (q) { if (c === q) q = null; }
+    else if ((c === '"' || c === "'") && /[\s:\[,-]/.test(prev)) q = c;
+    else if (c === "#" && /\s/.test(prev)) return s.slice(0, k).trimEnd();
+  }
+  return s;
+}
+function splitInline(s) {
+  const out = []; let cur = "", q = null;
+  for (const c of s) {
+    if (q) { cur += c; if (c === q) q = null; }
+    else if (c === '"' || c === "'") { q = c; cur += c; }
+    else if (c === ",") { out.push(cur); cur = ""; }
+    else cur += c;
+  }
+  out.push(cur);
+  return out.map(x => x.trim()).filter(x => x !== "");
+}
+function scalar(v) {
+  v = v.trim();
+  if (v === "" || v === "~" || v === "null") return null;
+  if (v === "true" || v === "false") return v === "true";
+  if (/^-?\d+(\.\d+)?$/.test(v)) return Number(v);
+  if (v[0] === '"') return JSON.parse(v);
+  if (v[0] === "'") return v.slice(1, -1).replace(/''/g, "'");
+  if (v[0] === "[") return splitInline(v.slice(1, -1)).map(scalar);
+  return v;
+}
+function parseYAML(src) {
+  const lines = src.split(/\r?\n/)
+    .map(raw => ({ indent: raw.search(/\S/), text: stripComment(raw.trim()) }))
+    .filter(l => l.indent >= 0 && l.text !== "");
+  const isItem = t => t === "-" || t.startsWith("- ");
+  let i = 0;
+  const child = indent => (i < lines.length && lines[i].indent > indent ? block() : null);
+  const block = () => (isItem(lines[i].text) ? list(lines[i].indent) : map(lines[i].indent));
+  function map(indent) {
+    const obj = {};
+    while (i < lines.length && lines[i].indent === indent && !isItem(lines[i].text)) {
+      const m = lines[i].text.match(/^([^:]+?):(?:\s+(.*))?$/);
+      if (!m) throw new Error(`YAML: cannot read "${lines[i].text}"`);
+      i++;
+      obj[m[1].trim()] = m[2] ? scalar(m[2]) : child(indent);
+    }
+    return obj;
+  }
+  function list(indent) {
+    const arr = [];
+    while (i < lines.length && lines[i].indent === indent && isItem(lines[i].text)) {
+      const rest = lines[i].text.replace(/^-\s*/, "");
+      if (rest === "") { i++; arr.push(child(indent)); }
+      else if (/^[^"'\[][^:]*:(\s|$)/.test(rest)) { lines[i] = { indent: indent + 2, text: rest }; arr.push(map(indent + 2)); }
+      else { i++; arr.push(scalar(rest)); }
+    }
+    return arr;
+  }
+  return lines.length ? block() : {};
+}
+
+/* --- .md file: frontmatter (YAML between ---) + body (# PT / # EN → ## Section) --- */
+function parseMD(text) {
+  const m = text.match(/(?:^|\n)---[ \t]*\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)([\s\S]*)$/);
+  if (!m) throw new Error("no frontmatter block (---)");
+  const body = {}; let lang = null, sec = null;
+  m[2].split(/\r?\n/).forEach(line => {
+    let h;
+    if ((h = line.match(/^#\s+(PT|EN)\s*$/i))) { lang = h[1].toLowerCase(); body[lang] = {}; sec = null; }
+    else if (lang && (h = line.match(/^##\s+(.+?)\s*$/))) { sec = h[1].toLowerCase(); body[lang][sec] = []; }
+    else if (lang && sec) body[lang][sec].push(line);
+  });
+  for (const l in body) for (const s in body[l]) body[l][s] = body[l][s].join("\n").trim();
+  return { data: parseYAML(m[1]) || {}, body };
+}
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pick = (o, path) => path.split(".").reduce((v, k) => (v == null ? v : v[k]), o);
+
+/* --- interface text: t("section.key") → site.md[section][lang][key], or [section].shared[key] --- */
+const MISSING = new Set();
+function t(key) {
+  if (!CONTENT.site) return "";
+  const [sec, ...rest] = key.split("."), path = rest.join("."), s = CONTENT.site[sec];
+  const v = s ? pick(s[CONTENT.lang], path) ?? pick(s.shared, path) : null;
+  if (v == null || v === "") {
+    if (!MISSING.has(`${CONTENT.lang}:${key}`)) { MISSING.add(`${CONTENT.lang}:${key}`); console.warn(`[websites] site.md: missing "${key}" (${CONTENT.lang})`); }
+    return "";
+  }
+  return v;
+}
+
+const getText = async path => {
+  const r = await fetch(path, { cache: "no-cache" });
+  if (!r.ok) throw new Error(`${path} → HTTP ${r.status}`);
+  return r.text();
+};
+async function loadSite() {
+  return parseMD(await getText("content/site.md")).data;
+}
+
+/* --- static interface text: elements carry keys (data-i18n*), values come from site.md --- */
+const LINKS = ["email", "linkedin", "instagram", "github", "website"];
+function applyTexts() {
+  if (!CONTENT.site) return;
+  document.documentElement.lang = t("global.html_lang") || CONTENT.lang;
+  if (t("global.page_title")) document.title = t("global.page_title");
+  if (t("global.page_description")) $('meta[name="description"]').setAttribute("content", t("global.page_description"));
+
+  $$("[data-i18n]").forEach(el => {
+    const v = t(el.dataset.i18n);
+    if (Array.isArray(v)) el.innerHTML = v.map(esc).join("<br>"); // multi-line values
+    else el.textContent = v;
+  });
+  $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+  $$("[data-i18n-list]").forEach(el => {
+    const v = t(el.dataset.i18nList);
+    el.innerHTML = (Array.isArray(v) ? v : []).map(x => `<li>${esc(x)}</li>`).join("");
+  });
+  $$("[data-i18n-lead]").forEach(el => { // text before the element's first child (e.g. contact title + subtitle span)
+    let n = el.firstChild;
+    if (!n || n.nodeType !== 3) { n = document.createTextNode(""); el.insertBefore(n, el.firstChild); }
+    n.nodeValue = t(el.dataset.i18nLead);
+  });
+
+  // CTAs — all point to the WhatsApp URL in site.md
+  $$("[data-link]").forEach(el => { el.href = pick(CONTENT.site, `links.shared.${el.dataset.link}`) || "#contato"; });
+
+  // process steps
+  const steps = t("process.steps");
+  $("#steps").innerHTML = (Array.isArray(steps) ? steps : []).map((s, k) =>
+    `<li><span class="st-num">${String(k + 1).padStart(2, "0")}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`
+  ).join("");
+
+  // contact links — only the ones with a URL in site.md
+  $("#contact-links").innerHTML = LINKS.map(k => {
+    const url = pick(CONTENT.site, `links.shared.${k}`);
+    if (!url) return "";
+    const ext = !String(url).startsWith("mailto:");
+    return `<li><a href="${esc(url)}"${ext ? ' target="_blank" rel="noopener"' : ""}>${esc(t(`links.${k}`))} <span>↗</span></a></li>`;
+  }).join("");
+
+  // language switcher — built from site.md languages, only when there is a choice
+  const langs = pick(CONTENT.site, "global.shared.languages") || [];
+  $("#lang-switch").innerHTML = langs.length < 2 ? "" : langs.map((l, k) =>
+    `${k ? '<span aria-hidden="true">/</span>' : ""}<a href="#" role="button" lang="${esc(l)}" data-lang="${esc(l)}" aria-pressed="${l === CONTENT.lang}"${l === CONTENT.lang ? ' class="is-active"' : ""}>${esc(String(l).toUpperCase())}</a>`
+  ).join("");
+}
+
+/* --- language: PT default, choice persisted per browser --- */
+const LANG_KEY = "websites-lang";
+function setLang(l) {
+  const langs = pick(CONTENT.site, "global.shared.languages") || [];
+  if (!langs.includes(l) || l === CONTENT.lang) return;
+  CONTENT.lang = l;
+  try { localStorage.setItem(LANG_KEY, l); } catch (e) { /* storage unavailable: choice lasts for this visit */ }
+  applyTexts();
+}
+
+/* --- boot: site.md → language → texts --- */
+async function boot() {
+  try {
+    CONTENT.site = await loadSite();
+    let stored = null;
+    try { stored = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
+    const langs = pick(CONTENT.site, "global.shared.languages") || [];
+    CONTENT.lang = langs.includes(stored) ? stored : pick(CONTENT.site, "global.shared.default_lang") || "pt";
+  } catch (err) {
+    console.warn("[websites] Could not load content/site.md — interface texts are unavailable.", err);
+  }
+  applyTexts();
+  spy();
+  const target = location.hash && document.getElementById(location.hash.slice(1));
+  if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: "instant", block: "start" }));
+}
+boot();
+</script>
+</body>
+</html>
