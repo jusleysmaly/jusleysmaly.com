@@ -1,10 +1,10 @@
 ---
 id: "nh"
 title: "Novo Horizonte"
-status: "wip"
+status: "done"
 year: 2026
 updated: ""
-stage: null
+stage: 3
 disciplines:
   pt: ["Estratégia de marca", "Identidade visual", "Sistema de marca", "Design ambiental"]
   en: ["Brand Strategy", "Visual Identity", "Brand System", "Environmental Design"]
@@ -13,14 +13,26 @@ frames:
     ratio: "1:1"
     image: "assets/projects/nh/novo-horizonte-00.webp"
     caption:
-      pt: "Construção do símbolo"
-      en: "Symbol construction"
-  - type: "system"
+      pt: "Marca"
+      en: "Mark"
+  - type: "fleet"
     ratio: "3555:2001"
     image: "assets/projects/nh/novo-horizonte-01.webp"
     caption:
-      pt: "Exploração do sistema na frota"
-      en: "System exploration on the fleet"
+      pt: "Ônibus com a nova identidade"
+      en: "Bus in the new identity"
+  - type: "uniform"
+    ratio: "3555:2001"
+    image: "assets/projects/nh/novo-horizonte-02.webp"
+    caption:
+      pt: "Uniforme e crachá"
+      en: "Uniform and ID badge"
+  - type: "application"
+    ratio: "3591:2001"
+    image: "assets/projects/nh/novo-horizonte-03.webp"
+    caption:
+      pt: "Equipe e frota"
+      en: "Team and fleet"
 log: []
 ---
 

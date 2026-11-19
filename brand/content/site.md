@@ -19,7 +19,7 @@ Rules:
 # The site sorts WIP → DONE, then newest year first; projects of the SAME
 # year keep the order of this list — place new projects accordingly.
 #
-# OFFICIAL SELECTION — exactly these 9 projects.
+# OFFICIAL SELECTION — exactly these 10 projects.
 # NOT part of the selection (temporary placeholders still in index.html DATA,
 # to be replaced by this manifest — do not create files for them):
 #   Alpha · Saccaro · Tidelli · Baniwa
@@ -28,8 +28,9 @@ manifest:
   projects:
     # WIP
     - uatuma-lio
-    - nh
+    - grupo-assayag
     # DONE
+    - nh
     - vetcare
     - postos-3000
     - greenfood-superfood-america
